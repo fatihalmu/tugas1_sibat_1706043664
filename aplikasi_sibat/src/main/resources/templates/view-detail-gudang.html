@@ -38,7 +38,7 @@
                         <td>
                             <select  name="jenis" class="form-control" id="exampleFormControlSelect2">
                                 <option th:value="null" selected>--Pilih Obat--</option>
-                                <option th:each="obat: ${obatDiGudang}" th:value="${obat.id}" th:text="${obat.getNama()}" ></option>
+                                <option th:each="obat: ${obatTidakDiGudang}" th:value="${obat.id}" th:text="${obat.getNama()}" ></option>
                             </select>
                         </td>
                         <td > <button type="submit"> Submit </button></td>

@@ -1,5 +1,6 @@
 package tugas1_sibat_1706043664.aplikasi_sibat.controller;
 
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class GudangController {
     @Qualifier("gudangServiceImpl")
     @Autowired
     private GudangService gudangService;
+
+    @Autowired
+    private  ObatService obatService;
     //fitur 5 : menampilkan daftar gudang
     @RequestMapping(value = "/gudang",method = RequestMethod.GET)
     public String view_Daftar_gudang(Model model){
@@ -37,16 +41,24 @@ public class GudangController {
         GudangModel objekGudang = gudangService.getListGudangById(Long.valueOf(idGudang)).get();
         List<Gudang_ObatModel> gudang_obatModel= objekGudang.getGudangObatModels();
         ArrayList<ObatModel> obatDiGudang = new ArrayList<ObatModel>();
+        List<ObatModel> listAllObat = obatService.getListObat();
 
         //masukkan obat yang dimiliki kedalam obatDiGudang
         for(Gudang_ObatModel eachobject:gudang_obatModel){
             obatDiGudang.add(eachobject.getObat());
+        }
+        for(int i =0 ; i < listAllObat.size();i++){
+            ObatModel objekObat = listAllObat.get(i);
+            if(obatDiGudang.contains(objekObat)){
+                listAllObat.remove(objekObat);
+            }
         }
 
         String navbartitle= "SIBAT";
         model.addAttribute("judul",navbartitle);
         model.addAttribute("objekGudang",objekGudang);
         model.addAttribute("obatDiGudang",obatDiGudang);
+        model.addAttribute("obatTidakDiGudang",listAllObat);
 
         return "view-detail-gudang";
     }
@@ -86,6 +98,12 @@ public class GudangController {
         }
         model.addAttribute("objek",objekgudang);
         return "delete-gudang";
+    }
+
+    //fitur 9
+    @RequestMapping(value = "/gudang/tambah-obat")
+    public String tambah_obat_di_gudang(Model model){
+        return "sesuatu";
     }
 
 }
