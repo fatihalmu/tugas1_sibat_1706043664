@@ -33,7 +33,7 @@
                 ide nya tulis alamat nya dan masuk langsung ke blabla by id nya
                 misal view by id.. berarti link nya ditambah nanti dengan obat.id
                 -->
-                <a th:href="@{/gudang/view?idGudang=} + ${}" ><button type="submit" class="btn btn-success">Lihat</button></a>
+                <a th:href="@{/gudang/view?idGudang=} + ${gudang.getId()}" ><button type="submit" class="btn btn-success">Lihat</button></a>
                 <a href='https://www.freecodecamp.org/'><button type="submit" class="btn btn-secondary">Ubah</button></a>
                 <a href='https://www.freecodecamp.org/'><button type="submit"  class="btn btn-danger">Hapus</button></a>
             </td>

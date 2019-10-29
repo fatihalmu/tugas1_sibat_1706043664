@@ -3,12 +3,11 @@ package tugas1_sibat_1706043664.aplikasi_sibat.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.GudangModel;
-import tugas1_sibat_1706043664.aplikasi_sibat.model.ObatModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.repository.GudangDB;
-import tugas1_sibat_1706043664.aplikasi_sibat.repository.ObatDB;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,5 +33,10 @@ public class GudangServiceImpl implements GudangService{
     @Override
     public void hapusGudang(Long id) {
 
+    }
+
+    @Override
+    public Optional<GudangModel> getListGudangById(Long idGudang) {
+        return gudangDB.findById(idGudang);
     }
 }
