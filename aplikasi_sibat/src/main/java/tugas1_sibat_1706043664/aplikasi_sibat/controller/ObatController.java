@@ -32,7 +32,7 @@ public class ObatController {
     @Autowired
     private Obat_SupplierService obatSupplierService;
 
-
+    //fitur 1
     //nampilin semua obat yang tersedia pada list
     //view all
     @RequestMapping("/")
@@ -43,7 +43,7 @@ public class ObatController {
         model.addAttribute("listAllObat",listAllObat);
         return "home";
     }
-
+    //fitur 2
     //tambah obat form
     @RequestMapping(value = "/obat/tambah", method = RequestMethod.GET)
     public String tambah_obat_form(Model model){
@@ -66,6 +66,7 @@ public class ObatController {
         return "form-tambah-obat";
 
     }
+    // fitur 2
     // addrow  suppliersubmit tambah obat
     @RequestMapping (value = "/obat/tambah",method = RequestMethod.POST,params ={"tambahSupplier"})
     public String tambah_obat_tambah_supplier(@ModelAttribute ObatModel objekdummy,Model model){
@@ -81,7 +82,8 @@ public class ObatController {
         model.addAttribute("listAllSupplier",listAllSupplier);
         return "form-tambah-obat";
     }
-    //submit tambahobat
+    //fitur2
+    // submit tambahobat
     static String getAlphaNumericString()
     {
 
@@ -140,7 +142,8 @@ public class ObatController {
 
     }
 
-    //view detail restoran
+    //fitur 3
+    // view detail restoran
     @RequestMapping(value = "obat/view",method = RequestMethod.GET)
     public String view_detail_obat(@RequestParam(value = "noReg") String nomor_registrasi , Model model){
         ObatModel objek = obatService.findbynoreg(nomor_registrasi);
