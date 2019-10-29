@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.GudangModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.Gudang_ObatModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.ObatModel;
@@ -50,5 +48,28 @@ public class GudangController {
         model.addAttribute("obatDiGudang",obatDiGudang);
 
         return "view-detail-gudang";
+    }
+
+    //fitur 7 :tambah gudang form
+    @RequestMapping(value = "/gudang/tambah",method = RequestMethod.GET)
+    public String tambah_gudang_form(Model model){
+        GudangModel objekdummy = new GudangModel();
+        String navbartitle= "SIBAT";
+        model.addAttribute("judul",navbartitle);
+        model.addAttribute("objekdummy",objekdummy);
+        return "form-tambah-gudang";
+    }
+
+    //fitur 7 :tambah gudang submit
+    @RequestMapping(value = "/gudang/tambah",method = RequestMethod.POST)
+    public String tambah_gudang_submit(@ModelAttribute GudangModel objekdummy, Model model){
+        System.out.println("nama "+objekdummy.getNama());
+        System.out.println("alamat "+objekdummy.getAlamat());
+        System.out.println("id "+objekdummy.getId());
+        gudangService.tambahGudang(objekdummy);
+        String navbartitle= "SIBAT";
+        model.addAttribute("judul",navbartitle);
+        model.addAttribute("objekdummy",objekdummy);
+        return "form-tambah-gudang-notify";
     }
 }

@@ -67,7 +67,7 @@ public class ObatController {
 
     }
     // fitur 2
-    // addrow  suppliersubmit tambah obat
+    // addrow  supplier  tambah obat
     @RequestMapping (value = "/obat/tambah",method = RequestMethod.POST,params ={"tambahSupplier"})
     public String tambah_obat_tambah_supplier(@ModelAttribute ObatModel objekdummy,Model model){
         Obat_SupplierModel obatSupplierModel = new Obat_SupplierModel();
@@ -82,8 +82,8 @@ public class ObatController {
         model.addAttribute("listAllSupplier",listAllSupplier);
         return "form-tambah-obat";
     }
-    //fitur2
-    // submit tambahobat
+
+    //untuk random kode
     static String getAlphaNumericString()
     {
 
@@ -112,10 +112,12 @@ public class ObatController {
         // return the resultant string
         return r.toString();
     }
+    //fitur2
+    // submit tambahobat
     @RequestMapping(value = "/obat/tambah", method = RequestMethod.POST)
     public String tambah_obat_submit( @ModelAttribute ObatModel objekdummy, Model model){
         System.out.println("ini id setelah objek di lempar kembali ke method tambah" + objekdummy.getId());
-
+        //pembuatan kode
         String idjenis = String.valueOf(objekdummy.getJenis().getId());
         String bentuk = objekdummy.getBentuk();
         String tahun = String.valueOf(objekdummy.getDibuat().getYear()+1900);
