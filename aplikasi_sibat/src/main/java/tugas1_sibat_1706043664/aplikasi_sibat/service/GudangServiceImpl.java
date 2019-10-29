@@ -31,12 +31,19 @@ public class GudangServiceImpl implements GudangService{
     }
 
     @Override
-    public void hapusGudang(Long id) {
-
+    public Optional<GudangModel> getListGudangById(Long idGudang) {
+        return gudangDB.findById(idGudang);
     }
 
     @Override
-    public Optional<GudangModel> getListGudangById(Long idGudang) {
-        return gudangDB.findById(idGudang);
+    public void deleteGudangById(Long id) {
+        GudangModel gudang = getListGudangById(id).get();
+        if(gudang.getGudangObatModels().size()==0){
+            gudangDB.deleteById(id);
+        }else{
+            UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException();
+            throw unsupportedOperationException;
+        }
+
     }
 }

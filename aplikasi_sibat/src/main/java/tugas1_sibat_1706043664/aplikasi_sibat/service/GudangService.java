@@ -10,6 +10,6 @@ public interface GudangService {
     void tambahGudang(GudangModel gudangModel);
     GudangModel ubahGudang(GudangModel gudangModel);
     List<GudangModel> getListGudang();
-    void hapusGudang(Long id);
     Optional<GudangModel> getListGudangById(Long idGudang);
+    void deleteGudangById(Long id);
 }

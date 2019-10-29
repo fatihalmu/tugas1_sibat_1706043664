@@ -13,6 +13,7 @@ import tugas1_sibat_1706043664.aplikasi_sibat.service.ObatService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
@@ -73,5 +74,18 @@ public class GudangController {
         return "form-tambah-gudang-notify";
     }
 
-    //
+    //fitur 8 : hapus gudang by id
+    @RequestMapping (value = "/gudang/hapus/{id}",method = RequestMethod.GET)
+    public String hapus_gudang(@PathVariable("id") Long id,Model model){
+        GudangModel objekgudang = gudangService.getListGudangById(id).get();
+        try{
+            gudangService.deleteGudangById(id);
+        }catch (UnsupportedOperationException e){
+            model.addAttribute("errorMessage", "Tidak berhasil dihapus karena gudang memiliki obat!");
+            return "delete-gudang-error";
+        }
+        model.addAttribute("objek",objekgudang);
+        return "delete-gudang";
+    }
+
 }

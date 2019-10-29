@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface GudangDB extends JpaRepository<GudangModel, Long> {
     Optional<GudangModel> findById(Long id);
+    void deleteById(Long id);
 }

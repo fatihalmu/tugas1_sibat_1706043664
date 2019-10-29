@@ -178,6 +178,4 @@ public class ObatController {
         return "view-detail-obat";
     }
 
-
-
 }
