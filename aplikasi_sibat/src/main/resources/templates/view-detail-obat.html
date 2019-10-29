@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar" ></nav>
+<h2>Daftar Obat</h2>
+<div class = "container-fluid">
+    <div class="card">
+        <h5 class="card-header">Detail Data Obat</h5>
+        <div class="card-body">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th scope="row">Kode</th>
+                    <td th:text="${objek.kode}"></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">Nama</th>
+                    <td th:text="${objek.nama}"></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">Nomor Registrasi</th>
+                    <td th:text="${objek.nomorRegistrasi}"></td>
+
+                </tr>
+
+                <tr>
+                    <th scope="row">Bentuk</th>
+                    <td th:text="${objek.bentuk}"></td>
+
+                </tr>
+
+                <tr>
+                    <th scope="row">Tanggal Terbit</th>
+                    <td th:text="${objek.tanggalTerbit}"></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">Harga</th>
+                    <td th:text="${objek.harga}"></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">Jenis Obat</th>
+                    <td th:text="${objek.jenis.getNama()}"></td>
+
+                </tr>
+                <tr>
+                    <th scope="row">Gudang Tempat Disimpan</th>
+                    <td th:each="gudang, iterationStatus : *{listgudang}" th:text="${gudang.getNama()}"> </td>
+
+                </tr>
+                <tr>
+                    <th scope="row">Supplier</th>
+                    <td th:each="supplier, iterationStatus : *{listsupplier}"th:text="${supplier.getNama()}"></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
