@@ -119,11 +119,22 @@ public class ObatController {
         System.out.println("ini id setelah objek di lempar kembali ke method tambah" + objekdummy.getId());
         //pembuatan kode
         String idjenis = String.valueOf(objekdummy.getJenis().getId());
-        String bentuk = objekdummy.getBentuk();
+        String bentuk = new String();
+        System.out.println("bentuk obat dari html :"+objekdummy.getBentuk());
+        if(objekdummy.getBentuk().equals("Cairan")) {
+             bentuk += "01";
+        }else if(objekdummy.getBentuk().equals("Kapsul")){
+             bentuk += "02";
+        }else if(objekdummy.getBentuk().equals("Tablet")){
+             bentuk+="03";
+            System.out.println("masuk");
+        }
+        System.out.println("bentuk obat : " + bentuk);
         String tahun = String.valueOf(objekdummy.getDibuat().getYear()+1900);
         String tahuntambah5 = String.valueOf(objekdummy.getTanggalTerbit().getYear()+1905);
         String random = getAlphaNumericString().toUpperCase();
-        objekdummy.setKode(idjenis+bentuk+tahun+tahuntambah5+random);
+        objekdummy.setKode(idjenis+ bentuk +tahun+tahuntambah5+random);
+        System.out.println(objekdummy.getKode());
         //System.out.println(objekdummy.getObatSupplierModels().get(0).getSupplier().getNama());
 
         for (int i= 0 ;  i < objekdummy.getObatSupplierModels().size();i++){

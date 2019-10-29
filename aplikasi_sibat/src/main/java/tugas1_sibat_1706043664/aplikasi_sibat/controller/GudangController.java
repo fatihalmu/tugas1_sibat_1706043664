@@ -72,4 +72,6 @@ public class GudangController {
         model.addAttribute("objekdummy",objekdummy);
         return "form-tambah-gudang-notify";
     }
+
+    //
 }
