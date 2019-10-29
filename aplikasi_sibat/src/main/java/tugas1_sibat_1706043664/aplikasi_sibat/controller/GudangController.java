@@ -5,13 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.GudangModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.Gudang_ObatModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.ObatModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.GudangService;
+import tugas1_sibat_1706043664.aplikasi_sibat.service.Gudang_ObatService;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.ObatService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,6 +28,9 @@ public class GudangController {
 
     @Autowired
     private  ObatService obatService;
+
+    @Autowired
+    private Gudang_ObatService gudang_obatService;
     //fitur 5 : menampilkan daftar gudang
     @RequestMapping(value = "/gudang",method = RequestMethod.GET)
     public String view_Daftar_gudang(Model model){
@@ -40,6 +46,14 @@ public class GudangController {
     public String view_detail_gudang(@RequestParam(value = "idGudang") String idGudang,Model model){
         GudangModel objekGudang = gudangService.getListGudangById(Long.valueOf(idGudang)).get();
         List<Gudang_ObatModel> gudang_obatModel= objekGudang.getGudangObatModels();
+        System.out.println("masuk yang pertama");
+
+        Gudang_ObatModel dummyObatDitambah = new Gudang_ObatModel();
+        dummyObatDitambah.setGudang(objekGudang);
+        System.out.println("setelah buat dummy");
+
+
+
         ArrayList<ObatModel> obatDiGudang = new ArrayList<ObatModel>();
         List<ObatModel> listAllObat = obatService.getListObat();
 
@@ -59,7 +73,8 @@ public class GudangController {
         model.addAttribute("objekGudang",objekGudang);
         model.addAttribute("obatDiGudang",obatDiGudang);
         model.addAttribute("obatTidakDiGudang",listAllObat);
-
+        model.addAttribute("dummyObatDitambah",dummyObatDitambah);
+        System.out.println("ini gudang :"+dummyObatDitambah.getGudang());
         return "view-detail-gudang";
     }
 
@@ -101,9 +116,27 @@ public class GudangController {
     }
 
     //fitur 9
-    @RequestMapping(value = "/gudang/tambah-obat")
-    public String tambah_obat_di_gudang(Model model){
-        return "sesuatu";
+    @RequestMapping(value = "/gudang/tambah-obat",method = RequestMethod.POST)
+    public String  tambah_obat_di_gudang(@ModelAttribute("dummyObatDitambah") @Valid Gudang_ObatModel dummyObatDitambah,
+                                      BindingResult result, Model model){
+        if(result.hasErrors()){
+            System.out.println("masuk karena error");
+            System.out.println(result.getAllErrors());
+            System.out.println(result.getTarget());
+            System.out.println(result.getSuppressedFields());
+            return "tes";
+        }
+        System.out.println("masuk kedua");
+        System.out.println("obatnya :" + dummyObatDitambah.getObat() +" gudangnya: "+ dummyObatDitambah.getGudang());
+        //dummyObatDitambah.setGudang();
+        gudang_obatService.tambahgudangobat(dummyObatDitambah);
+        //untuk ambil id
+        GudangModel objekGudang = dummyObatDitambah.getGudang();
+        view_detail_gudang(String.valueOf(objekGudang.getId()),model);
+        model.addAttribute("dummyObatDitambah",dummyObatDitambah);
+
+        return "add-obat-to-gudang-notify";
+
     }
 
 }

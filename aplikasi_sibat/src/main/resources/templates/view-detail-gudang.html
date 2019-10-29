@@ -35,13 +35,16 @@
                         <td th:text="${obatDiGudang.size()}"></td>
                     </tr>
                     <tr>
-                        <td>
-                            <select  name="jenis" class="form-control" id="exampleFormControlSelect2">
-                                <option th:value="null" selected>--Pilih Obat--</option>
-                                <option th:each="obat: ${obatTidakDiGudang}" th:value="${obat.id}" th:text="${obat.getNama()}" ></option>
-                            </select>
-                        </td>
-                        <td > <button type="submit"> Submit </button></td>
+                        <form th:action="@{/gudang/tambah-obat}" th:object="${dummyObatDitambah}" method="POST">
+                            <input type="hidden" th:name="id" th:value="${objekGudang}" th:field="*{gudang}"/>
+                            <td>
+                                <select  name="obat" class="form-control" id="exampleFormControlSelect2" th:field="*{obat}">
+                                    <option th:value="null" selected>--Pilih Obat--</option>
+                                    <option th:each="obat: ${obatTidakDiGudang}" th:value="${obat.getId()}" th:text="${obat.getNama()}" ></option>
+                                </select>
+                            </td>
+                            <td> <a><button type="submit" class="btn btn-success">Submit</button></a></td>
+                        </form>
                     </tr>
                     </tbody>
                 </table>
