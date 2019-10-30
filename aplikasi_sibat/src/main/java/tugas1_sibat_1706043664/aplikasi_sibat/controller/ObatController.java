@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.*;
-import tugas1_sibat_1706043664.aplikasi_sibat.service.JenisService;
-import tugas1_sibat_1706043664.aplikasi_sibat.service.ObatService;
-import tugas1_sibat_1706043664.aplikasi_sibat.service.Obat_SupplierService;
-import tugas1_sibat_1706043664.aplikasi_sibat.service.SupplierService;
+import tugas1_sibat_1706043664.aplikasi_sibat.service.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -31,6 +28,10 @@ public class ObatController {
 
     @Autowired
     private Obat_SupplierService obatSupplierService;
+
+    @Autowired
+    private GudangService gudangService;
+
 
     //fitur 1
     //nampilin semua obat yang tersedia pada list
@@ -178,4 +179,28 @@ public class ObatController {
         return "view-detail-obat";
     }
 
+    //fitur 4
+    /**
+     //fitur 10 nampilin form
+     @RequestMapping(value = "obat/filter",method = RequestMethod.GET)
+     public String filter_form(Model model){
+     List<GudangModel> listAllGudang= gudangService.getListGudang();
+
+     return "filter-form";
+     }*/
+    //fitur 10 ketika tekan search
+    @RequestMapping(value = "/obat/filter",method = RequestMethod.GET)
+    public String filter (@RequestParam(value = "idGudang",required = false)Long idGudang,
+                          @RequestParam(value = "idSupplier",required = false)Long idSupplier,
+                          @RequestParam(value = "idJenis",required = false)Long idJenis,Model model){
+        List<GudangModel> listAllGudang = gudangService.getListGudang();
+        List<SupplierModel> listAllSupplier = supplierService.getListSupplier();
+        List<JenisModel> listAllJenis = jenisService.getListJenis();
+
+        model.addAttribute("listAllJenis",listAllJenis);
+        model.addAttribute("listAllSupplier",listAllSupplier);
+        model.addAttribute("listAllGudang",listAllGudang);
+        return "filter-form";
+
+    }
 }

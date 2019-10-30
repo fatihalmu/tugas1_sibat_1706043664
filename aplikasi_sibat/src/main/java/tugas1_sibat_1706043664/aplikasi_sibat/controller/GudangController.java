@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.GudangModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.Gudang_ObatModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.ObatModel;
+import tugas1_sibat_1706043664.aplikasi_sibat.model.SupplierModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.GudangService;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.Gudang_ObatService;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.ObatService;
+import tugas1_sibat_1706043664.aplikasi_sibat.service.SupplierService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -138,5 +140,6 @@ public class GudangController {
         return "add-obat-to-gudang-notify";
 
     }
+
 
 }
