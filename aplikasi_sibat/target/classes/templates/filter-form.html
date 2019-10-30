@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        .card {
+            margin: 0 auto; /* Added */
+            float: none; /* Added */
+            margin-bottom: 10px; /* Added */
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar" ></nav>
+<h2></h2>
+<div class = "container" style="text-align: center;">
+        <div class="card" style="width:30vw;text-align: center">
+            <div class="card-body">
+                <h5 class="card-title">Cari Obat</h5>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Gudang:</th>
+                        <td>
+                            <select  name="gudang" class="form-control" id="exampleFormControlSelect2" >
+                                <option th:value="null" selected>--Pilih Gudang--</option>
+                                <option th:each="gudang: ${listAllGudang}" th:value="${gudang.getId()}" th:text="${gudang.getNama()}" ></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jenis:</th>
+                        <td>
+                            <select  name="gudang" class="form-control" id="exampleFormControlSelect3" >
+                            <option th:value="null" selected>--Pilih Jenis--</option>
+                            <option th:each="jenis: ${listAllJenis}" th:value="${jenis.getId()}" th:text="${jenis.getNama()}" ></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Supplier:</th>
+                        <td>
+                            <select  name="gudang" class="form-control" id="exampleFormControlSelect4" >
+                            <option th:value="null" selected>--Pilih Supplier--</option>
+                            <option th:each="supplier: ${listAllSupplier}" th:value="${supplier.getId()}" th:text="${supplier.getNama()}" ></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td> <a><button type="submit" class="btn btn-success">Cari</button></a></td>
+                    </tr>
+                    <!--
+                    <tr>
+                        <form th:action="@{/gudang/tambah-obat}" th:object="${dummyObatDitambah}" method="POST">
+                            <input type="hidden" th:name="id" th:value="${objekGudang}" th:field="*{gudang}"/>
+                            <td>
+                                <select  name="obat" class="form-control" id="exampleFormControlSelect2" th:field="*{obat}">
+                                    <option th:value="null" selected>--Pilih Obat--</option>
+                                    <option th:each="obat: ${obatTidakDiGudang}" th:value="${obat.getId()}" th:text="${obat.getNama()}" ></option>
+                                </select>
+                            </td>
+                            <td> <a><button type="submit" class="btn btn-success">Submit</button></a></td>
+                        </form>
+                    </tr>
+                    -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        @media (min-width: 768px) {
+            .container-small {
+                width: 300px;
+            }
+            .container-large {
+                width: 970px;
+            }
+        }
+        @media (min-width: 992px) {
+            .container-small {
+                width: 500px;
+            }
+            .container-large {
+                width: 1170px;
+            }
+        }
+        @media (min-width: 1200px) {
+            .container-small {
+                width: 700px;
+            }
+            .container-large {
+                width: 1500px;
+            }
+        }
+
+        .container-small, .container-large {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar" ></nav>
+
+<div class = "container" style="text-align: center;">
+    <div class="card" style="width:30vw;text-align: center">
+        <div class="card-body">
+            <h5 class="card-title">Tambah Gudang</h5>
+            <form th:action="@{/gudang/tambah}" th:object="${objekdummy}" method="POST">
+                <div class="form-group ">
+                    <label for="exampleFormControlInput1">Nama</label>
+                    <input type="text" name="nama"  class="form-control"  id="exampleFormControlInput1" placeholder="ex:JNE" th:field="*{nama}">
+                </div>
+
+                <div class="form-group ">
+                    <label for="exampleFormControlInput2">alamat</label>
+                    <input type="text" name="alamat" class="form-control" id="exampleFormControlInput2" placeholder="ex:Jl. Turi 1, Depok" th:field="*{alamat}">
+                </div>
+
+                <button type="submit"> Submit </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+</body>
+</html>
