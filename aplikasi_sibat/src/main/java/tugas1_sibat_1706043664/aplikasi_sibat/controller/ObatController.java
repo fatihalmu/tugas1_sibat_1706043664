@@ -1,5 +1,6 @@
 package tugas1_sibat_1706043664.aplikasi_sibat.controller;
 
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -116,34 +117,15 @@ public class ObatController {
     // submit tambahobat
     @RequestMapping(value = "/obat/tambah", method = RequestMethod.POST)
     public String tambah_obat_submit( @ModelAttribute ObatModel objekdummy, Model model){
-        System.out.println("ini id setelah objek di lempar kembali ke method tambah" + objekdummy.getId());
-        //pembuatan kode
-        String idjenis = String.valueOf(objekdummy.getJenis().getId());
-        String bentuk = new String();
-        System.out.println("bentuk obat dari html :"+objekdummy.getBentuk());
-        if(objekdummy.getBentuk().equals("Cairan")) {
-             bentuk += "01";
-        }else if(objekdummy.getBentuk().equals("Kapsul")){
-             bentuk += "02";
-        }else if(objekdummy.getBentuk().equals("Tablet")){
-             bentuk+="03";
-            System.out.println("masuk");
-        }
-        System.out.println("bentuk obat : " + bentuk);
-        String tahun = String.valueOf(objekdummy.getDibuat().getYear()+1900);
-        String tahuntambah5 = String.valueOf(objekdummy.getTanggalTerbit().getYear()+1905);
-        String random = getAlphaNumericString().toUpperCase();
-        objekdummy.setKode(idjenis+ bentuk +tahun+tahuntambah5+random);
+
+        objekdummy.setKode(buat_kode(objekdummy));
         System.out.println(objekdummy.getKode());
-        //System.out.println(objekdummy.getObatSupplierModels().get(0).getSupplier().getNama());
 
         for (int i= 0 ;  i < objekdummy.getObatSupplierModels().size();i++){
             objekdummy.getObatSupplierModels().get(i).setObat(objekdummy);
         }
 
-        System.out.println("ini id saat objek ingin disave" + objekdummy.getId());
         obatService.tambahObat(objekdummy);
-        System.out.println("ini id saat objek telah di save" + objekdummy.getId());
 
         for (Obat_SupplierModel objek : objekdummy.getObatSupplierModels()){
             obatSupplierService.tambahobatsupplier(objek);
@@ -155,6 +137,28 @@ public class ObatController {
         model.addAttribute("objekdummy",objekdummy);
         return "form-tambah-obat-notify";
 
+    }
+
+    //method untuk buat kode
+    public String buat_kode(ObatModel objekObat){
+        //pembuatan kode
+        String idjenis = String.valueOf(objekObat.getJenis().getId());
+        String bentuk = new String();
+        System.out.println("bentuk obat dari html :"+objekObat.getBentuk());
+        if(objekObat.getBentuk().equals("Cairan")) {
+            bentuk += "01";
+        }else if(objekObat.getBentuk().equals("Kapsul")){
+            bentuk += "02";
+        }else if(objekObat.getBentuk().equals("Tablet")){
+            bentuk+="03";
+            System.out.println("masuk");
+        }
+        System.out.println("bentuk obat : " + bentuk);
+        String tahun = String.valueOf(objekObat.getDibuat().getYear()+1900);
+        String tahuntambah5 = String.valueOf(objekObat.getTanggalTerbit().getYear()+1905);
+        String random = getAlphaNumericString().toUpperCase();
+        String Kode = idjenis+ bentuk +tahun+tahuntambah5+random;
+        return Kode;
     }
 
     //fitur 3
@@ -236,7 +240,8 @@ public class ObatController {
             jenisDipilih = objekjenis;
         }
 
-
+        String navbartitle= "SIBAT";
+        model.addAttribute("judul",navbartitle);
         model.addAttribute("listAllJenis",listAllJenis);
         model.addAttribute("listAllSupplier",listAllSupplier);
         model.addAttribute("listAllGudang",listAllGudang);
@@ -246,5 +251,26 @@ public class ObatController {
         model.addAttribute("jenisDipilih",jenisDipilih);
         return "filter-form";
 
+    }
+
+    //fitur 4 : mengubah obat
+    //form obat
+    @RequestMapping(value = "/obat/ubah",method = RequestMethod.GET)
+    public String ubah_obat_form(@RequestParam(value = "id")Long id,Model model){
+        ObatModel objekObat = obatService.findById(id);
+        String navbartitle= "SIBAT";
+        model.addAttribute("judul",navbartitle);
+        model.addAttribute("objekObat",objekObat);
+        return "ubah-obat-form";
+    }
+    //fitur 4 :mengubah obat
+    //submit obat
+    @RequestMapping(value = "/obat/ubah",method = RequestMethod.POST)
+    public String ubah_obat_submit(@ModelAttribute ObatModel objekObat, Model model){
+       ObatModel objekBaru = obatService.ubahObat(objekObat);
+        String navbartitle= "SIBAT";
+        model.addAttribute("judul",navbartitle);
+        model.addAttribute("objekBaru",objekBaru);
+        return "ubah-obat-notify";
     }
 }

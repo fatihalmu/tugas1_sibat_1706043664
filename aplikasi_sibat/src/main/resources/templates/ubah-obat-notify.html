@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        @media (min-width: 768px) {
+            .container-small {
+                width: 300px;
+            }
+            .container-large {
+                width: 970px;
+            }
+        }
+        @media (min-width: 992px) {
+            .container-small {
+                width: 500px;
+            }
+            .container-large {
+                width: 1170px;
+            }
+        }
+        @media (min-width: 1200px) {
+            .container-small {
+                width: 700px;
+            }
+            .container-large {
+                width: 1500px;
+            }
+        }
+
+        .container-small, .container-large {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar" ></nav>
+<h2 th:text="'Obat '+ ${objekBaru.getNama()} + ' dengan kode '+ ${objekBaru.getKode()}+' berhasil diubah'"></h2>
+</body>
+</html>

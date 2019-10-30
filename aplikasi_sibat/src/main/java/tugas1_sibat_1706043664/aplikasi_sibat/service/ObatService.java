@@ -12,4 +12,6 @@ public interface ObatService {
     ObatModel getObatByNomor();
     void hapusObat(Long id);
     ObatModel findbynoreg(String nomorRegistrasi);
+
+    ObatModel findById(Long id);
 }
