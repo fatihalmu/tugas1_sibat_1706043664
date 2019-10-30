@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.*;
-import tugas1_sibat_1706043664.aplikasi_sibat.service.JenisService;
-import tugas1_sibat_1706043664.aplikasi_sibat.service.ObatService;
-import tugas1_sibat_1706043664.aplikasi_sibat.service.Obat_SupplierService;
-import tugas1_sibat_1706043664.aplikasi_sibat.service.SupplierService;
+import tugas1_sibat_1706043664.aplikasi_sibat.service.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,7 +29,11 @@ public class ObatController {
     @Autowired
     private Obat_SupplierService obatSupplierService;
 
+    @Autowired
+    private GudangService gudangService;
 
+
+    //fitur 1
     //nampilin semua obat yang tersedia pada list
     //view all
     @RequestMapping("/")
@@ -43,7 +44,7 @@ public class ObatController {
         model.addAttribute("listAllObat",listAllObat);
         return "home";
     }
-
+    //fitur 2
     //tambah obat form
     @RequestMapping(value = "/obat/tambah", method = RequestMethod.GET)
     public String tambah_obat_form(Model model){
@@ -66,7 +67,8 @@ public class ObatController {
         return "form-tambah-obat";
 
     }
-    // addrow  suppliersubmit tambah obat
+    // fitur 2
+    // addrow  supplier  tambah obat
     @RequestMapping (value = "/obat/tambah",method = RequestMethod.POST,params ={"tambahSupplier"})
     public String tambah_obat_tambah_supplier(@ModelAttribute ObatModel objekdummy,Model model){
         Obat_SupplierModel obatSupplierModel = new Obat_SupplierModel();
@@ -81,7 +83,8 @@ public class ObatController {
         model.addAttribute("listAllSupplier",listAllSupplier);
         return "form-tambah-obat";
     }
-    //submit tambahobat
+
+    //untuk random kode
     static String getAlphaNumericString()
     {
 
@@ -110,16 +113,29 @@ public class ObatController {
         // return the resultant string
         return r.toString();
     }
+    //fitur2
+    // submit tambahobat
     @RequestMapping(value = "/obat/tambah", method = RequestMethod.POST)
     public String tambah_obat_submit( @ModelAttribute ObatModel objekdummy, Model model){
         System.out.println("ini id setelah objek di lempar kembali ke method tambah" + objekdummy.getId());
-
+        //pembuatan kode
         String idjenis = String.valueOf(objekdummy.getJenis().getId());
-        String bentuk = objekdummy.getBentuk();
+        String bentuk = new String();
+        System.out.println("bentuk obat dari html :"+objekdummy.getBentuk());
+        if(objekdummy.getBentuk().equals("Cairan")) {
+             bentuk += "01";
+        }else if(objekdummy.getBentuk().equals("Kapsul")){
+             bentuk += "02";
+        }else if(objekdummy.getBentuk().equals("Tablet")){
+             bentuk+="03";
+            System.out.println("masuk");
+        }
+        System.out.println("bentuk obat : " + bentuk);
         String tahun = String.valueOf(objekdummy.getDibuat().getYear()+1900);
         String tahuntambah5 = String.valueOf(objekdummy.getTanggalTerbit().getYear()+1905);
         String random = getAlphaNumericString().toUpperCase();
-        objekdummy.setKode(idjenis+bentuk+tahun+tahuntambah5+random);
+        objekdummy.setKode(idjenis+ bentuk +tahun+tahuntambah5+random);
+        System.out.println(objekdummy.getKode());
         //System.out.println(objekdummy.getObatSupplierModels().get(0).getSupplier().getNama());
 
         for (int i= 0 ;  i < objekdummy.getObatSupplierModels().size();i++){
@@ -140,7 +156,8 @@ public class ObatController {
 
     }
 
-    //view detail restoran
+    //fitur 3
+    // view detail restoran
     @RequestMapping(value = "obat/view",method = RequestMethod.GET)
     public String view_detail_obat(@RequestParam(value = "noReg") String nomor_registrasi , Model model){
         ObatModel objek = obatService.findbynoreg(nomor_registrasi);
@@ -162,6 +179,28 @@ public class ObatController {
         return "view-detail-obat";
     }
 
+    //fitur 4
+    /**
+     //fitur 10 nampilin form
+     @RequestMapping(value = "obat/filter",method = RequestMethod.GET)
+     public String filter_form(Model model){
+     List<GudangModel> listAllGudang= gudangService.getListGudang();
 
+     return "filter-form";
+     }*/
+    //fitur 10 ketika tekan search
+    @RequestMapping(value = "/obat/filter",method = RequestMethod.GET)
+    public String filter (@RequestParam(value = "idGudang",required = false)Long idGudang,
+                          @RequestParam(value = "idSupplier",required = false)Long idSupplier,
+                          @RequestParam(value = "idJenis",required = false)Long idJenis,Model model){
+        List<GudangModel> listAllGudang = gudangService.getListGudang();
+        List<SupplierModel> listAllSupplier = supplierService.getListSupplier();
+        List<JenisModel> listAllJenis = jenisService.getListJenis();
 
+        model.addAttribute("listAllJenis",listAllJenis);
+        model.addAttribute("listAllSupplier",listAllSupplier);
+        model.addAttribute("listAllGudang",listAllGudang);
+        return "filter-form";
+
+    }
 }

@@ -12,8 +12,6 @@ import java.util.List;
 public class GudangModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Size(max = 20)
-    @Column(name = "id",nullable = false)
     private Long id;
 
     @NotNull

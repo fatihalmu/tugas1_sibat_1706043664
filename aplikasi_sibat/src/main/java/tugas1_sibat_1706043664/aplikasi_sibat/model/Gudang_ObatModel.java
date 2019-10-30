@@ -12,8 +12,6 @@ import javax.validation.constraints.Size;
 public class Gudang_ObatModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Size(max = 20)
-    @Column(name = "id",nullable = false)
     private Long id;
 
 
