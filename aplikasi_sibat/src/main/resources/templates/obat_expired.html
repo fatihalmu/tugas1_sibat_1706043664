@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        .card {
+            margin: 0 auto; /* Added */
+            float: none; /* Added */
+            margin-bottom: 10px; /* Added */
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar" ></nav>
+<h2></h2>
+<div class = "container" style="text-align: center;">
+        <div class="card" style="width:30vw;text-align: center">
+            <div class="card-body">
+                <h5 class="card-title">Daftar Obat Yang Sudah Expired Di Suatu Gudang</h5>
+                <table class="table">
+                    <form th:action="@{/gudang/expired-obat}" method="get">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Pilih Gudang:</th>
+                            <td>
+                                <select  name="idGudang" class="form-control" id="exampleFormControlSelect2" >
+                                    <option th:value="null" selected>--Pilih Gudang--</option>
+                                    <option th:each="gudang: ${listAllGudang}" th:value="${gudang.getId()}" th:text="${gudang.getNama()}" ></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td> <a><button type="submit" class="btn btn-success">Lihat</button></a></td>
+                        </tr>
+                        </tbody>
+                    </form>
+                </table>
+            </div>
+        </div>
+</div>
+
+<!-- untuk daftar obatnya"-->
+<div class = "container-fluid" style="text-align: center;">
+    <div class="card" style="text-align: center">
+        <div class="card-body">
+            <h5 class="card-title thead-dark" th:text="'Daftar Obat di Gudang \''+${obatExpired.get(0).getGudangObatModels().get(0).getGudang().getNama()} +'\' Expired'"></h5>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Kode</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Nomor Registrasi</th>
+                    <th scope="col">Tanggal Terbit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- diiisi pake iterasi dari datbase-->
+                <tr th:each="obat, iterationStatus : *{obatExpired}"
+                    th:style="${iterationStatus.even} ? 'color: blue'">
+                    <td th:text="${iterationStatus.count}"></td>
+                    <td th:text="${obat.getKode()}"></td>
+                    <td th:text="${obat.getNama()}"></td>
+                    <td th:text="${obat.getNomorRegistrasi()}"></td>
+                    <td th:text="${obat.getTanggalTerbit()}"></td>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

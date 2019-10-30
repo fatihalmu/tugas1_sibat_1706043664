@@ -16,7 +16,7 @@
 </head>
 <body>
 <nav th:fragment="navbar" class = "navbar navbar-expand-lg navbar-light bg-dark">
-    <a class = "navbar-brand" href="#" th:text="${judul}" style="color: white"></a>
+    <a class = "navbar-brand" th:href="@{/}" th:text="${judul}" style="color: white"></a>
     <button class = "navbar-toggler" type="button" data-toggle = "collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -25,7 +25,7 @@
         <div class="navbar-nav">
             <a class = "nav-item nav-link active" th:href="@{/}" style="color: white"> Beranda <span class ="sr-only">(current)</span></a>
             <a class = "nav-item nav-link active" th:href="@{/gudang}" style="color: white"> Gudang <span class ="sr-only">(current)</span></a>
-            <a class = "nav-item nav-link active" th:href="@{/}" style="color: white"> Cari <span class ="sr-only">(current)</span></a>
+            <a class = "nav-item nav-link active" th:href="@{/gudang/expired-obat}" style="color: white"> Cari <span class ="sr-only">(current)</span></a>
             <a class = "nav-item nav-link active" th:href="@{/obat/filter}" style="color: white"> Filter<span class ="sr-only">(current)</span></a>
         </div>
     </div>

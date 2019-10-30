@@ -17,10 +17,8 @@ import tugas1_sibat_1706043664.aplikasi_sibat.service.ObatService;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.SupplierService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class GudangController {
@@ -139,6 +137,35 @@ public class GudangController {
         model.addAttribute("dummyObatDitambah",dummyObatDitambah);
         return "add-obat-to-gudang-notify";
 
+    }
+
+    //fitur 11 menampilkan daftar obat pada suatu gudang yang telah lebih dari 5 tahun
+
+    @RequestMapping(value = "/gudang/expired-obat",method = RequestMethod.GET)
+    public String obat_expired(@RequestParam(value = "idGudang",required = false) Long idGudang,Model model){
+        //list all gudang untuk drop down
+        List<GudangModel> listAllGudang = gudangService.getListGudang();
+        //gudang objek untuk table
+        GudangModel objekGudang = new GudangModel();
+        List<ObatModel> obatDiGudang = new ArrayList<>();
+        List<ObatModel> obatExpired = new ArrayList<>();
+
+        Date date = new Date();
+        if(idGudang != null){
+            objekGudang = gudangService.getListGudangById(idGudang).get();
+            List<Gudang_ObatModel> gudangObatModelList = objekGudang.getGudangObatModels();
+            for (Gudang_ObatModel each : gudangObatModelList){
+                obatDiGudang.add(each.getObat());
+            }
+            for(ObatModel each: obatDiGudang){
+                if(date.getYear()-each.getTanggalTerbit().getYear() >= 5){
+                    obatExpired.add(each);
+                }
+            }
+        }
+        model.addAttribute("listAllGudang",listAllGudang);
+        model.addAttribute("obatExpired",obatExpired);
+        return "obat_expired";
     }
 
 

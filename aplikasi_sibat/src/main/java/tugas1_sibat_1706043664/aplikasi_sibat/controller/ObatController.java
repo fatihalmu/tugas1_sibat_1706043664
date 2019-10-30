@@ -9,6 +9,7 @@ import tugas1_sibat_1706043664.aplikasi_sibat.model.*;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.*;
 
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -147,6 +148,8 @@ public class ObatController {
         for (Obat_SupplierModel objek : objekdummy.getObatSupplierModels()){
             obatSupplierService.tambahobatsupplier(objek);
         }
+
+        System.out.println("TANGGAL TERBIT : " + objekdummy.getTanggalTerbit());
         String navbartitle= "SIBAT";
         model.addAttribute("judul",navbartitle);
         model.addAttribute("objekdummy",objekdummy);
@@ -177,16 +180,7 @@ public class ObatController {
         return "view-detail-obat";
     }
 
-    //fitur 4
-    /**
-     //fitur 10 nampilin form
-     @RequestMapping(value = "obat/filter",method = RequestMethod.GET)
-     public String filter_form(Model model){
-     List<GudangModel> listAllGudang= gudangService.getListGudang();
-
-     return "filter-form";
-     }*/
-    //fitur 10 ketika tekan search
+    //fitur 10 : filter obat
     @RequestMapping(value = "/obat/filter",method = RequestMethod.GET)
     public String filter (@RequestParam(value = "idGudang",required = false)Long idGudang,
                           @RequestParam(value = "idSupplier",required = false)Long idSupplier,
@@ -241,6 +235,7 @@ public class ObatController {
             obatFiltered.retainAll(obatDiJenis);
             jenisDipilih = objekjenis;
         }
+
 
         model.addAttribute("listAllJenis",listAllJenis);
         model.addAttribute("listAllSupplier",listAllSupplier);
