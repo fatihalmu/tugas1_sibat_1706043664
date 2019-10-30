@@ -273,4 +273,16 @@ public class ObatController {
         model.addAttribute("objekBaru",objekBaru);
         return "ubah-obat-notify";
     }
+
+    //Fitur13: Bonus Jumlah supplier
+    @RequestMapping (value = "/bonus",method = RequestMethod.GET)
+    public String bonus(Model model){
+        String navbartitle= "BONUS";
+        List<ObatModel> listAllObat =  obatService.getListObat();
+        model.addAttribute("judul",navbartitle);
+        model.addAttribute("listAllObat",listAllObat);
+
+
+        return "bonus";
+    }
 }
