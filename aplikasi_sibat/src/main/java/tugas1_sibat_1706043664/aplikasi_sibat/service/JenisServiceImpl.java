@@ -7,6 +7,7 @@ import tugas1_sibat_1706043664.aplikasi_sibat.repository.JenisDB;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,5 +18,10 @@ public class JenisServiceImpl implements JenisService{
     @Override
     public List<JenisModel> getListJenis() {
         return jenisDB.findAll();
+    }
+
+    @Override
+    public Optional<JenisModel> getListJenisById(Long idJenis) {
+        return jenisDB.findById(idJenis);
     }
 }

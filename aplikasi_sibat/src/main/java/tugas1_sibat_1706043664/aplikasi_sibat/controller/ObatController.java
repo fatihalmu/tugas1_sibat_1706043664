@@ -9,10 +9,8 @@ import tugas1_sibat_1706043664.aplikasi_sibat.model.*;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 @Controller
 public class ObatController {
@@ -192,14 +190,65 @@ public class ObatController {
     @RequestMapping(value = "/obat/filter",method = RequestMethod.GET)
     public String filter (@RequestParam(value = "idGudang",required = false)Long idGudang,
                           @RequestParam(value = "idSupplier",required = false)Long idSupplier,
-                          @RequestParam(value = "idJenis",required = false)Long idJenis,Model model){
+                          @RequestParam(value = "idJenis",required = false)Long idJenis, Model model){
+        //list frontend untuk tampilin masing masing
         List<GudangModel> listAllGudang = gudangService.getListGudang();
         List<SupplierModel> listAllSupplier = supplierService.getListSupplier();
         List<JenisModel> listAllJenis = jenisService.getListJenis();
+        //list back end untuk filter
+        GudangModel objekgudang= new GudangModel();
+        SupplierModel objeksupplier = new SupplierModel();
+        JenisModel objekjenis = new JenisModel();
+        // list backend obat di x
+        ArrayList<ObatModel> obatDiGudang = new ArrayList<>();
+        ArrayList<ObatModel> obatDiSupplier = new ArrayList<>();
+        List<ObatModel> obatDiJenis = new ArrayList<>();
+        //list semua obat
+        List<ObatModel> obatFiltered= obatService.getListObat();
+
+        //variabel untuk menentukan apa yang dipilih
+        GudangModel gudangDipilih = new GudangModel();
+        JenisModel jenisDipilih = new JenisModel();
+        SupplierModel supplierDipilih = new SupplierModel();
+
+        //list obat pada objek gudang
+        if(idGudang != null) {
+            objekgudang = gudangService.getListGudangById(idGudang).get();
+            System.out.println("masuk gudang");
+            List<Gudang_ObatModel> gudang_obatModels = objekgudang.getGudangObatModels();
+            for (Gudang_ObatModel each : gudang_obatModels) {
+                obatDiGudang.add(each.getObat());
+            }
+            obatFiltered.retainAll(obatDiGudang);
+            gudangDipilih = objekgudang;
+        }
+        // list obat pada supplier
+        if(idSupplier!=null) {
+            objeksupplier = supplierService.getListSupplierById(idSupplier).get();
+            System.out.println("masuk supplier");
+            List<Obat_SupplierModel> obat_supplierModels = objeksupplier.getObatSupplierModels();
+            for (Obat_SupplierModel each : obat_supplierModels) {
+                obatDiSupplier.add(each.getObat());
+            }
+            obatFiltered.retainAll(obatDiSupplier);
+            supplierDipilih = objeksupplier;
+        }
+        // list obat pada jenis
+        if(idJenis!=null) {
+            objekjenis = jenisService.getListJenisById(idJenis).get();
+            System.out.println("masuk jenis");
+            obatDiJenis=  objekjenis.getListObat();
+            obatFiltered.retainAll(obatDiJenis);
+            jenisDipilih = objekjenis;
+        }
 
         model.addAttribute("listAllJenis",listAllJenis);
         model.addAttribute("listAllSupplier",listAllSupplier);
         model.addAttribute("listAllGudang",listAllGudang);
+        model.addAttribute("obatFiltered",obatFiltered);
+        model.addAttribute("gudangDipilih",gudangDipilih);
+        model.addAttribute("supplierDipilih",supplierDipilih);
+        model.addAttribute("jenisDipilih",jenisDipilih);
         return "filter-form";
 
     }

@@ -48,6 +48,7 @@ public class GudangController {
     public String view_detail_gudang(@RequestParam(value = "idGudang") String idGudang,Model model){
         GudangModel objekGudang = gudangService.getListGudangById(Long.valueOf(idGudang)).get();
         List<Gudang_ObatModel> gudang_obatModel= objekGudang.getGudangObatModels();
+
         System.out.println("masuk yang pertama");
 
         Gudang_ObatModel dummyObatDitambah = new Gudang_ObatModel();
@@ -136,7 +137,6 @@ public class GudangController {
         GudangModel objekGudang = dummyObatDitambah.getGudang();
         view_detail_gudang(String.valueOf(objekGudang.getId()),model);
         model.addAttribute("dummyObatDitambah",dummyObatDitambah);
-
         return "add-obat-to-gudang-notify";
 
     }
