@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        .card {
+            margin: 0 auto; /* Added */
+            float: none; /* Added */
+            margin-bottom: 10px; /* Added */
+        }
+    </style>
+    <meta http-equiv = "refresh" th:content="|2; url=@{/}|"  />
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar" ></nav>
+<h2></h2>
+<div class = "container" style="text-align: center;">
+    <div class="card" style="width:30vw;text-align: center">
+        <div class="card-body">
+            <h5 class="card-title " style="background-color: #b21f2d">ERROR: </h5>
+            <h5 class="card-subtitle">Page Not Found</h5>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

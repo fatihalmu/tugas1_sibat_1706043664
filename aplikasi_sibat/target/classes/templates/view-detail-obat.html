@@ -7,12 +7,13 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar" ></nav>
-<h2>Detail Data Obat</h2>
-<div class = "container-fluid">
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<br>
+<div class="container-fluid">
     <div class="card">
-        <h5 class="card-header">Detail Data Obat</h5>
-        <div class="card-body">
+        <h3 class="card-header" style="text-align: center; font-family: Impact;color: black;letter-spacing: 4px">DETAIL
+            DATA OBAT</h3>
+        <div class="card-body" STYLE="font-family: Roboto">
             <table class="table">
                 <tbody>
                 <tr>
@@ -54,18 +55,35 @@
                 </tr>
                 <tr>
                     <th scope="row">Gudang Tempat Disimpan</th>
-                    <td th:each="gudang, iterationStatus : *{listgudang}" th:text="${gudang.getNama()}"> </td>
+                    <td>
+
+                            <li th:each="gudang, iterationStatus : *{listgudang}" th:text="${gudang.getNama()}">
+                            </li>
+                    </td>
 
                 </tr>
                 <tr>
                     <th scope="row">Supplier</th>
-                    <td th:each="supplier, iterationStatus : *{listsupplier}"th:text="${supplier.getNama()}"></td>
+                    <td>
+                            <li th:each="supplier, iterationStatus : *{listsupplier}" th:text="${supplier.getNama()}"></li>
+
+                    </td>
 
                 </tr>
                 </tbody>
             </table>
+            <div style="text-align: center">
+                <a th:href="@{/obat/ubah?id=}+${objek.getId()}">
+                    <button class="btn btn-secondary"> Ubah</button>
+                </a>
+                <a th:href="@{/obat/hapus/}+${objek.getId()}">
+                    <button class="btn btn-danger"> Hapus</button>
+                </a>
+            </div>
         </div>
+
     </div>
+    <BR>
 </div>
 </body>
 </html>

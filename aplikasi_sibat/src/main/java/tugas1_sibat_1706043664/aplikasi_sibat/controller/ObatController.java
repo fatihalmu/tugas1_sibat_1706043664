@@ -10,6 +10,7 @@ import tugas1_sibat_1706043664.aplikasi_sibat.model.*;
 import tugas1_sibat_1706043664.aplikasi_sibat.service.*;
 
 import java.awt.*;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -33,49 +34,50 @@ public class ObatController {
     private GudangService gudangService;
 
 
-    //fitur 1
+    //fitur 1 DONE
     //nampilin semua obat yang tersedia pada list
     //view all
     @RequestMapping("/")
     public String beranda(Model model){
-        String navbartitle= "BERANDA";
+        String navbartitle= "SIBAT";
         List<ObatModel> listAllObat =  obatService.getListObat();
         model.addAttribute("judul",navbartitle);
         model.addAttribute("listAllObat",listAllObat);
         return "home";
     }
-    //fitur 2
+
+    /**-----------------------------------------------------------*/
+
+    //fitur 2 DONE
     //tambah obat form
     @RequestMapping(value = "/obat/tambah", method = RequestMethod.GET)
     public String tambah_obat_form(Model model){
+
         ObatModel objekdummy = new ObatModel();
+        List<JenisModel> listAllJenis = jenisService.getListJenis();
+        List<SupplierModel> listAllSupplier = supplierService.getListSupplier();
         Obat_SupplierModel obatSupplierModel = new Obat_SupplierModel();
         objekdummy.setObatSupplierModels(new ArrayList<Obat_SupplierModel>());
         objekdummy.getObatSupplierModels().add(obatSupplierModel);
-        System.out.println("ini id setelah di inisiasi" + objekdummy.getId());
 
-        List<JenisModel> listAllJenis = jenisService.getListJenis();
-        List<SupplierModel> listAllSupplier = supplierService.getListSupplier();
         String navbartitle= "SIBAT";
         model.addAttribute("judul",navbartitle);
         model.addAttribute("objekdummy",objekdummy);
-
-        System.out.println("ini id setelah objek di lempar" + objekdummy.getId());
-
         model.addAttribute("listAllJenis",listAllJenis);
         model.addAttribute("listAllSupplier",listAllSupplier);
         return "form-tambah-obat";
 
     }
-    // fitur 2
+
+    // fitur 2 DONE
     // addrow  supplier  tambah obat
     @RequestMapping (value = "/obat/tambah",method = RequestMethod.POST,params ={"tambahSupplier"})
     public String tambah_obat_tambah_supplier(@ModelAttribute ObatModel objekdummy,Model model){
         Obat_SupplierModel obatSupplierModel = new Obat_SupplierModel();
         objekdummy.getObatSupplierModels().add(obatSupplierModel);
-
         List<JenisModel> listAllJenis = jenisService.getListJenis();
         List<SupplierModel> listAllSupplier = supplierService.getListSupplier();
+
         String navbartitle= "SIBAT";
         model.addAttribute("judul",navbartitle);
         model.addAttribute("objekdummy",objekdummy);
@@ -84,84 +86,64 @@ public class ObatController {
         return "form-tambah-obat";
     }
 
-    //untuk random kode
-    static String getAlphaNumericString()
-    {
-
-        // lower limit for LowerCase Letters
-        int lowerLimit = 97;
-
-        // lower limit for LowerCase Letters
-        int upperLimit = 122;
-
-        Random random = new Random();
-
-        // Create a StringBuffer to store the result
-        StringBuffer r = new StringBuffer(2);
-
-        for (int i = 0; i < 2; i++) {
-
-            // take a random value between 97 and 122
-            int nextRandomChar = lowerLimit
-                    + (int)(random.nextFloat()
-                    * (upperLimit - lowerLimit + 1));
-
-            // append a character at the end of bs
-            r.append((char)nextRandomChar);
-        }
-
-        // return the resultant string
-        return r.toString();
-    }
-    //fitur2
+    //fitur2 DONE
     // submit tambahobat
     @RequestMapping(value = "/obat/tambah", method = RequestMethod.POST)
     public String tambah_obat_submit( @ModelAttribute ObatModel objekdummy, Model model){
 
-        objekdummy.setKode(buat_kode(objekdummy));
-        System.out.println(objekdummy.getKode());
+        String navbartitle = "SIBAT";
+        String buttonErr = "Lihat Data Obat";
+        String buttonErr2 = "Tambah Obat";
+        String linkbutton = "/";
+        String linkbutton2 = "/obat/tambah";
+        model.addAttribute("judul", navbartitle);
+        model.addAttribute("objekdummy", objekdummy);
+        model.addAttribute("buttonErr",buttonErr);
+        model.addAttribute("linkbutton",linkbutton);
+        model.addAttribute("buttonErr2",buttonErr2);
+        model.addAttribute("linkbutton2",linkbutton2);
+        try {
+            System.out.println(objekdummy.getObatSupplierModels().get(0));
+            objekdummy.setKode(obatService.buat_kode(objekdummy));
+            //kalau dia ga masukkin supplier langsung tambah
+            if(objekdummy.getObatSupplierModels().get(0).getSupplier() == null){
+                //hapus objek yang tadi biar bisa ditambah
+                objekdummy.getObatSupplierModels().remove(0);
+                obatService.tambahObat(objekdummy);
+                return "form-tambah-obat-notify";
+            }
 
-        for (int i= 0 ;  i < objekdummy.getObatSupplierModels().size();i++){
-            objekdummy.getObatSupplierModels().get(i).setObat(objekdummy);
+            // kalau dia masukin supplier
+                for (int i = 0; i < objekdummy.getObatSupplierModels().size(); i++) {
+                    objekdummy.getObatSupplierModels().get(i).setObat(objekdummy);
+                }
+
+            obatService.tambahObat(objekdummy);
+            System.out.println("masuk sini");
+
+                for (Obat_SupplierModel objek : objekdummy.getObatSupplierModels()) {
+                    obatSupplierService.tambahobatsupplier(objek);
+                }
+
+
+            return "form-tambah-obat-notify";
+        }catch (Exception SQLIntegrityConstraintViolationException ){
+            System.out.println("masuk eror");
+            String errmess = "Data Yang Anda Masukkan Salah Atau Tidak Lengkap Atau Memiliki Kesamaan Dengan Data Yang Sudah Ada";
+            model.addAttribute("judul", navbartitle);
+            model.addAttribute("errmess",errmess);
+            model.addAttribute("buttonErr",buttonErr);
+            model.addAttribute("linkbutton",linkbutton);
+            model.addAttribute("buttonErr2",buttonErr2);
+            model.addAttribute("linkbutton2",linkbutton2);
+            return "error";
+
         }
-
-        obatService.tambahObat(objekdummy);
-
-        for (Obat_SupplierModel objek : objekdummy.getObatSupplierModels()){
-            obatSupplierService.tambahobatsupplier(objek);
-        }
-
-        System.out.println("TANGGAL TERBIT : " + objekdummy.getTanggalTerbit());
-        String navbartitle= "SIBAT";
-        model.addAttribute("judul",navbartitle);
-        model.addAttribute("objekdummy",objekdummy);
-        return "form-tambah-obat-notify";
-
     }
 
-    //method untuk buat kode
-    public String buat_kode(ObatModel objekObat){
-        //pembuatan kode
-        String idjenis = String.valueOf(objekObat.getJenis().getId());
-        String bentuk = new String();
-        System.out.println("bentuk obat dari html :"+objekObat.getBentuk());
-        if(objekObat.getBentuk().equals("Cairan")) {
-            bentuk += "01";
-        }else if(objekObat.getBentuk().equals("Kapsul")){
-            bentuk += "02";
-        }else if(objekObat.getBentuk().equals("Tablet")){
-            bentuk+="03";
-            System.out.println("masuk");
-        }
-        System.out.println("bentuk obat : " + bentuk);
-        String tahun = String.valueOf(objekObat.getDibuat().getYear()+1900);
-        String tahuntambah5 = String.valueOf(objekObat.getTanggalTerbit().getYear()+1905);
-        String random = getAlphaNumericString().toUpperCase();
-        String Kode = idjenis+ bentuk +tahun+tahuntambah5+random;
-        return Kode;
-    }
+    /**-----------------------------------------------------------*/
 
-    //fitur 3
+    //fitur 3 DONE
     // view detail restoran
     @RequestMapping(value = "obat/view",method = RequestMethod.GET)
     public String view_detail_obat(@RequestParam(value = "noReg") String nomor_registrasi , Model model){
@@ -184,7 +166,9 @@ public class ObatController {
         return "view-detail-obat";
     }
 
-    //fitur 10 : filter obat
+    /**-----------------------------------------------------------*/
+
+    //fitur 10 : filter obat DONE
     @RequestMapping(value = "/obat/filter",method = RequestMethod.GET)
     public String filter (@RequestParam(value = "idGudang",required = false)Long idGudang,
                           @RequestParam(value = "idSupplier",required = false)Long idSupplier,
@@ -252,8 +236,9 @@ public class ObatController {
         return "filter-form";
 
     }
+    /**-----------------------------------------------------------*/
 
-    //fitur 4 : mengubah obat
+    //fitur 4 : mengubah obat DONE
     //form obat
     @RequestMapping(value = "/obat/ubah",method = RequestMethod.GET)
     public String ubah_obat_form(@RequestParam(value = "id")Long id,Model model){
@@ -263,26 +248,70 @@ public class ObatController {
         model.addAttribute("objekObat",objekObat);
         return "ubah-obat-form";
     }
-    //fitur 4 :mengubah obat
+    //fitur 4 :mengubah obat DONE
     //submit obat
     @RequestMapping(value = "/obat/ubah",method = RequestMethod.POST)
     public String ubah_obat_submit(@ModelAttribute ObatModel objekObat, Model model){
-       ObatModel objekBaru = obatService.ubahObat(objekObat);
         String navbartitle= "SIBAT";
         model.addAttribute("judul",navbartitle);
-        model.addAttribute("objekBaru",objekBaru);
-        return "ubah-obat-notify";
+        try {
+            ObatModel objekBaru = obatService.ubahObat(objekObat);
+            model.addAttribute("objekBaru",objekBaru);
+            model.addAttribute("header","SUCCESS!");
+            model.addAttribute("pesan","Selamat! Obat Berhasil Dirubah!");
+            model.addAttribute("flag",true);
+            return "ubah-obat-notify";
+        }catch (UnsupportedOperationException e){
+            model.addAttribute("objekBaru",objekObat);
+            model.addAttribute("header","WARNING!");
+            model.addAttribute("pesan","Tidak Ada Perubahan Pada Obat Ini");
+            model.addAttribute("flag",false);
+            return "ubah-obat-notify";
+
+        }
+
     }
 
-    //Fitur13: Bonus Jumlah supplier
+    /**-----------------------------------------------------------*/
+
+    //Fitur13: Bonus Jumlah supplier DONE
     @RequestMapping (value = "/bonus",method = RequestMethod.GET)
     public String bonus(Model model){
-        String navbartitle= "BONUS";
+        String navbartitle= "SIBAT";
         List<ObatModel> listAllObat =  obatService.getListObat();
         model.addAttribute("judul",navbartitle);
         model.addAttribute("listAllObat",listAllObat);
-
-
         return "bonus";
+    }
+
+    /**-----------------------------------------------------------*/
+    //fitur tambahan hapus obat DONE
+    @RequestMapping (value = "/obat/hapus/{id}",method = RequestMethod.GET)
+    public String hapus_obat(@PathVariable("id") Long id,Model model){
+        ObatModel objekobat = obatService.findById(id);
+        String navbartitle = "SIBAT";
+        String buttonErr = "Lihat Daftar Obat";
+        String buttonErr2 = "Tambah Obat";
+        String linkbutton = "/";
+        String linkbutton2 = "/obat/tambah";
+        try{
+            obatService.hapusObat(objekobat);
+            System.out.println("masuk");
+        }catch (UnsupportedOperationException e){
+            model.addAttribute("objekdummy",objekobat);
+            model.addAttribute("judul", navbartitle);
+            model.addAttribute("buttonErr",buttonErr);
+            model.addAttribute("linkbutton",linkbutton);
+            model.addAttribute("buttonErr2",buttonErr2);
+            model.addAttribute("linkbutton2",linkbutton2);
+            return "delete-obat-error";
+        }
+        model.addAttribute("objekdummy",objekobat);
+        model.addAttribute("judul", navbartitle);
+        model.addAttribute("buttonErr",buttonErr);
+        model.addAttribute("linkbutton",linkbutton);
+        model.addAttribute("buttonErr2",buttonErr2);
+        model.addAttribute("linkbutton2",linkbutton2);
+        return "delete-obat";
     }
 }

@@ -7,40 +7,53 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar" ></nav>
-<h2>Daftar Obat</h2>
-<div class = "container-fluid">
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">No</th>
-            <th scope="col">Kode</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Harga</th>
-            <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- diiisi pake iterasi dari datbase-->
-        <tr th:each="obat, iterationStatus : *{listAllObat}"
-            th:style="${iterationStatus.even} ? 'color: blue'">
-            <td th:text="${iterationStatus.count}"></td>
-            <td th:text="${obat.getKode()}"></td>
-            <td th:text="${obat.getNama()}"></td>
-            <td th:text="${obat.getHarga()}"></td>
-            <td>
-                <!--
-                ide nya tulis alamat nya dan masuk langsung ke blabla by id nya
-                misal view by id.. berarti link nya ditambah nanti dengan obat.id
-                -->
-                <a th:href="@{/obat/view?noReg=} + ${obat.getNomorRegistrasi()}" ><button type="submit" class="btn btn-success">Lihat</button></a>
-                <a th:href="@{/obat/ubah?id=} + ${obat.getId()}"><button type="submit" class="btn btn-secondary">Ubah</button></a>
-                <a href='https://www.freecodecamp.org/'><button type="submit"  class="btn btn-danger">Hapus</button></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <a th:href="@{/obat/tambah}" class="btn btn-primary btn-lg pull-right" role="button">Tambah Obat</a>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: white;letter-spacing: 4px">SISTEM INFORMASI INVENTORY OBAT</h2>
+    <div class="card-body ">
+        <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: white;letter-spacing: 4px">DAFTAR OBAT</h2>
+        <table class="table bg-light" style="font-family: Roboto;text-align: center">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Kode</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- diiisi pake iterasi dari datbase-->
+            <tr th:each="obat, iterationStatus : *{listAllObat}"
+                th:style="${iterationStatus.even} ? 'color: blue'">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${obat.getKode()}"></td>
+                <td th:text="${obat.getNama()}"></td>
+                <td th:text="${obat.getHarga()}"></td>
+                <td>
+                    <!--
+                    ide nya tulis alamat nya dan masuk langsung ke blabla by id nya
+                    misal view by id.. berarti link nya ditambah nanti dengan obat.id
+                    -->
+                    <a th:href="@{/obat/view?noReg=} + ${obat.getNomorRegistrasi()}">
+                        <button type="submit" class="btn btn-success">Lihat</button>
+                    </a>
+                    <a th:href="@{/obat/ubah?id=} + ${obat.getId()}">
+                        <button type="submit" class="btn btn-secondary">Ubah</button>
+                    </a>
+                    <a th:href="@{/obat/hapus/}+${obat.getId()}">
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="container" style="text-align: right">
+            <a th:href="@{/obat/tambah}" class="btn btn-primary btn-lg pull-right" role="button"
+               style="font-family: Roboto">Tambah Obat</a>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

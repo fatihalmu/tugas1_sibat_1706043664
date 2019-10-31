@@ -3,6 +3,13 @@
 
 <head>
     <title> Home </title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <style>
@@ -12,6 +19,11 @@
             margin-bottom: 10px; /* Added */
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar" ></nav>
@@ -66,7 +78,7 @@
     <div class="card" style="text-align: center">
         <div class="card-body">
             <h5 class="card-title thead-dark">Daftar Obat</h5>
-            <table class="table">
+            <table id="example" class="table " >
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">Kode</th>

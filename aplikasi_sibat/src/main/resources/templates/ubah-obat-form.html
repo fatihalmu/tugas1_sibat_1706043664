@@ -38,56 +38,68 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar" ></nav>
-<h2>Ubah Obat</h2>
+
 <div class="container container-small">
-    <form th:action="@{/obat/ubah?id=}+${objekObat.getId()}" th:object="${objekObat}" method="POST">
-        <input type="hidden" name="id" th:name="id"  th:field="*{id}"/>
-        <div class="form-group ">
-            <label for="exampleFormControlInput1">Nama</label>
-            <input type="text" name="nama"  class="form-control"  id="exampleFormControlInput1" th:value="${objekObat.nama}" th:field="*{nama}">
-        </div>
+    <br>
+    <div class="card-body bg-light">
+        <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: black;letter-spacing: 4px">UBAH OBAT</h2>
+        <form class="form-group bg-light" th:action="@{/obat/ubah?id=}+${objekObat.getId()}" th:object="${objekObat}" method="POST" style="font-family: Roboto">
+            <input type="hidden" name="id" th:name="id"  th:field="*{id}"/>
+            <input type="hidden" name="kode" th:name="kode" th:value="${objekObat.getKode()}"  th:field="*{kode}"/>
+            <input type="hidden" name="nomorRegistrasi" th:name="nomorRegistrasi" th:value="${objekObat.getNomorRegistrasi()}"  th:field="*{nomorRegistrasi}"/>
+            <input type="hidden" name="jenis" th:name="jenis" th:value="${objekObat.getJenis()}"  th:field="*{jenis}"/>
+            <input type="hidden" name="obatSupplierModels" th:name="obatSupplierModels" th:value="${objekObat.getObatSupplierModels()}"  th:field="*{obatSupplierModels}"/>
+            <input type="hidden" name="gudangObatModels" th:name="gudangObatModels" th:value="${objekObat.getGudangObatModels()}"  th:field="*{gudangObatModels}"/>
+            <div class="form-group ">
+                <label for="exampleFormControlInput1">Nama</label>
+                <input type="text" name="nama"  class="form-control"  id="exampleFormControlInput1" th:value="${objekObat.nama}" th:field="*{nama}">
+            </div>
 
-        <div class="form-group ">
-            <label for="exampleFormControlInput2">Nomor Registrasi</label>
-            <input type="text" name="nomor_registrasi" class="form-control" id="exampleFormControlInput2" th:value="${objekObat.getNomorRegistrasi()}" disabled>
-        </div>
+            <div class="form-group ">
+                <label for="exampleFormControlInput2">Nomor Registrasi</label>
+                <input type="text" name="nomor_registrasi" class="form-control" id="exampleFormControlInput2" th:value="${objekObat.getNomorRegistrasi()}" disabled>
+            </div>
 
-        <div class="form-group ">
-            <label for="exampleFormControlInput3">Tanggal Terbit</label>
-            <input type="date" name="tanggal_terbit"  class="form-control" id="exampleFormControlInput3"  th:value="${objekObat.tanggalTerbit}" th:field="*{tanggalTerbit}">
-        </div>
+            <div class="form-group ">
+                <label for="exampleFormControlInput3">Tanggal Terbit</label>
+                <input type="date" name="tanggal_terbit"  class="form-control" id="exampleFormControlInput3"  th:value="${objekObat.tanggalTerbit}" th:field="*{tanggalTerbit}">
+            </div>
 
-        <div class="form-group ">
-            <label for="exampleFormControlInput4">Harga</label>
-            <input type="number" name="harga" class="form-control" id="exampleFormControlInput4" th:value="${objekObat.harga}" th:field="*{harga}">
-        </div>
+            <div class="form-group ">
+                <label for="exampleFormControlInput4">Harga</label>
+                <input type="number" name="harga" class="form-control" id="exampleFormControlInput4" th:value="${objekObat.harga}" th:field="*{harga}">
+            </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Bentuk</label>
-            <select  name="bentuk" class="form-control" id="exampleFormControlSelect1" th:value="${objekObat.getBentuk()}" th:field="*{bentuk}">
-                <option th:value="null" selected>--Pilih Jenis--</option>
-                <option value="Cairan">Cairan</option>
-                <option value="Kapsul">Kapsul</option>
-                <option value="Tablet">Tablet</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Bentuk</label>
+                <select  name="bentuk" class="form-control" id="exampleFormControlSelect1" th:value="${objekObat.getBentuk()}" th:field="*{bentuk}">
+                    <option th:value="null" selected>--Pilih Jenis--</option>
+                    <option value="Cairan">Cairan</option>
+                    <option value="Kapsul">Kapsul</option>
+                    <option value="Tablet">Tablet</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlSelect2">Jenis</label>
-            <select  name="jenis" class="form-control" id="exampleFormControlSelect2" th:value="${objekObat.jenis.getNama()}" disabled>
-            <option th:text="${objekObat.getJenis().getNama()}"selected></option>
-            </select>
-        </div>
-<!-- untuk supplier -->
-        <div class="form-group" >
-            <label for="exampleFormControlSelect3">Supplier</label>
-            <select  name="supplier" class="form-control" id="exampleFormControlSelect3" th:each="supplier, iterationStatus : ${objekObat.getObatSupplierModels()}" disabled>
-                <option th:text="${supplier.getSupplier().getNama()}" selected> </option>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Jenis</label>
+                <select  name="jenis" class="form-control" id="exampleFormControlSelect2" th:value="${objekObat.jenis.getNama()}" disabled>
+                <option th:text="${objekObat.getJenis().getNama()}"selected></option>
+                </select>
+            </div>
+        <!-- untuk supplier -->
+            <div class="form-group" >
+                <label for="exampleFormControlSelect3">Supplier</label>
+                <select  name="supplier" class="form-control" id="exampleFormControlSelect3" th:each="supplier, iterationStatus : ${objekObat.getObatSupplierModels()}" disabled>
+                    <option th:text="${supplier.getSupplier().getNama()}" selected> </option>
 
-            </select>
-        </div>
-        <button type="submit" name="id"> Submit </button>
-    </form>
+                </select>
+            </div>
+            <div style="text-align: right">
+                <button type="submit" name="id" class="btn btn-success" style="text-align: right"> Submit </button>
+            </div>
+        </form>
+    </div>
+    <br>
 </div>
 </body>
 </html>

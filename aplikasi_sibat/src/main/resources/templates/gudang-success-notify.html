@@ -20,7 +20,7 @@
         <div class="card-body">
             <h4 class="card-title " style="background-color: greenyellow; font-family: Impact;letter-spacing: 4px">SUCCESS </h4>
             <div style="font-family: Roboto">
-                <h5 th:text="'Gudang '+ ${objekdummy.getNama()} +' berhasil ditambahkan'"></h5>
+                <h5 th:text="${notify}"></h5>
                 <br>
                 <a th:href="${linkbutton}">
                     <button class="btn btn-success" th:text="${buttonErr}"></button>

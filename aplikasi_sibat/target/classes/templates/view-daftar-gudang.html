@@ -8,39 +8,43 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar" ></nav>
-<h1>Sistem Informasi Inventory Obat</h1>
 <div class = "container-fluid">
-    <table class="table">
-        <h2>Daftar Gudang</h2>
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">No</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">Action</th>
+    <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: white;letter-spacing: 4px">SISTEM INFORMASI INVENTORY OBAT</h2>
+    <div class="card-body ">
+        <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: white;letter-spacing: 4px">DAFTAR GUDANG</h2>
+        <table class="table bg-light" style="font-family: Roboto;text-align: center">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">Action</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <!-- diiisi pake iterasi dari datbase-->
-        <tr th:each="gudang, iterationStatus : *{listAllGudang}"
-            th:style="${iterationStatus.even} ? 'color: blue'">
-            <td th:text="${iterationStatus.count}"></td>
-            <td th:text="${gudang.getNama()}"></td>
-            <td th:text="${gudang.getAlamat()}"></td>
-            <td>
-                <!--
-                ide nya tulis alamat nya dan masuk langsung ke blabla by id nya
-                misal view by id.. berarti link nya ditambah nanti dengan obat.id
-                -->
-                <a th:href="@{/gudang/view?idGudang=} + ${gudang.getId()}" ><button type="submit" class="btn btn-success">Lihat</button></a>
-                <a href='https://www.freecodecamp.org/'><button type="submit" class="btn btn-secondary">Ubah</button></a>
-                <a th:href="@{/gudang/hapus/}+${gudang.getId()}"><button type="submit"  class="btn btn-danger">Hapus</button></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <a th:href="@{/gudang/tambah}" class="btn btn-primary btn-lg pull-right" role="button">Tambah Gudang</a>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- diiisi pake iterasi dari datbase-->
+            <tr th:each="gudang, iterationStatus : *{listAllGudang}"
+                th:style="${iterationStatus.even} ? 'color: blue'">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${gudang.getNama()}"></td>
+                <td th:text="${gudang.getAlamat()}"></td>
+                <td>
+                    <!--
+                    ide nya tulis alamat nya dan masuk langsung ke blabla by id nya
+                    misal view by id.. berarti link nya ditambah nanti dengan obat.id
+                    -->
+                    <a th:href="@{/gudang/view?idGudang=} + ${gudang.getId()}" ><button type="submit" class="btn btn-success">Lihat</button></a>
+                    <a th:href="@{/gudang/ubah/}+${gudang.getId()}"><button type="submit" class="btn btn-secondary">Ubah</button></a>
+                    <a th:href="@{/gudang/hapus/}+${gudang.getId()}"><button type="submit"  class="btn btn-danger">Hapus</button></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="container" style="text-align: right">
+             <a th:href="@{/gudang/tambah}" class="btn btn-primary btn-lg pull-right" role="button">Tambah Gudang</a>
+        </div>
+</div>
 </div>
 </body>
 </html>

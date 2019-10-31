@@ -38,59 +38,65 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar" ></nav>
-<h2>Tambah Obat</h2>
 <div class="container container-small">
-    <form th:action="@{/obat/tambah}" th:object="${objekdummy}" method="POST">
-        <input type="hidden" th:name="id" th:value="${objekdummy.id}" th:field="*{id}"/>
-        <div class="form-group ">
-            <label for="exampleFormControlInput1">Nama</label>
-            <input type="text" name="nama"  class="form-control"  id="exampleFormControlInput1" placeholder="ex:Parasetamol" th:field="*{nama}">
-        </div>
+    <br>
+    <div class="card-body bg-light">
+        <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: black;letter-spacing: 4px">TAMBAH OBAT</h2>
+        <form class="form-group bg-light align-content-around  " th:action="@{/obat/tambah}" th:object="${objekdummy}" method="POST" style="font-family: Roboto">
+            <input type="hidden" th:name="id" th:value="${objekdummy.id}" th:field="*{id}"/>
+            <div class="form-group ">
+                <label for="exampleFormControlInput1">Nama</label>
+                <input type="text" name="nama"  class="form-control"  id="exampleFormControlInput1" placeholder="ex:Parasetamol" th:field="*{nama}">
+            </div>
 
-        <div class="form-group ">
-            <label for="exampleFormControlInput2">Nomor Registrasi</label>
-            <input type="text" name="nomor_registrasi" class="form-control" id="exampleFormControlInput2" placeholder="ex:DTL9922226137A1" th:field="*{nomorRegistrasi}">
-        </div>
+            <div class="form-group ">
+                <label for="exampleFormControlInput2">Nomor Registrasi</label>
+                <input type="text" name="nomor_registrasi" class="form-control" id="exampleFormControlInput2" placeholder="ex:DTL9922226137A1" th:field="*{nomorRegistrasi}">
+            </div>
 
-        <div class="form-group ">
-            <label for="exampleFormControlInput3">Tanggal Terbit</label>
-            <input type="date" name="tanggal_terbit"  class="form-control" id="exampleFormControlInput3"   th:field="*{tanggalTerbit}">
-        </div>
+            <div class="form-group ">
+                <label for="exampleFormControlInput3">Tanggal Terbit</label>
+                <input type="date" name="tanggal_terbit"  class="form-control" id="exampleFormControlInput3"   th:field="*{tanggalTerbit}">
+            </div>
 
-        <div class="form-group ">
-            <label for="exampleFormControlInput4">Harga</label>
-            <input type="number" name="harga" class="form-control" id="exampleFormControlInput4" placeholder="100000" th:field="*{harga}">
-        </div>
+            <div class="form-group ">
+                <label for="exampleFormControlInput4">Harga</label>
+                <input type="number" name="harga" class="form-control" id="exampleFormControlInput4" placeholder="100000" th:field="*{harga}">
+            </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Bentuk</label>
-            <select  name="bentuk" class="form-control" id="exampleFormControlSelect1" th:field="*{bentuk}">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Bentuk</label>
+                <select  name="bentuk" class="form-control" id="exampleFormControlSelect1" th:field="*{bentuk}">
+                    <option th:value="null" selected>--Pilih Bentuk--</option>
+                    <option value="Cairan">Cairan</option>
+                    <option value="Kapsul">Kapsul</option>
+                    <option value="Tablet">Tablet</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Jenis</label>
+                <select  name="jenis" class="form-control" id="exampleFormControlSelect2" th:field="*{jenis}">
                 <option th:value="null" selected>--Pilih Jenis--</option>
-                <option value="Cairan">Cairan</option>
-                <option value="Kapsul">Kapsul</option>
-                <option value="Tablet">Tablet</option>
-            </select>
-        </div>
+                <option th:each="jenis: ${listAllJenis}" th:value="${jenis.getId()}" th:text="${jenis.getNama()}" ></option>
+                </select>
+            </div>
+    <!-- untuk supplier -->
+            <div class="form-group" >
+                <label for="exampleFormControlSelect3">Supplier</label>
+                <select  name="supplier" class="form-control" id="exampleFormControlSelect3" th:each="obatsupplier, rowStat:*{obatSupplierModels}" th:field="*{obatSupplierModels[__${rowStat.index}__].supplier}">
 
-        <div class="form-group">
-            <label for="exampleFormControlSelect2">Jenis</label>
-            <select  name="jenis" class="form-control" id="exampleFormControlSelect2" th:field="*{jenis}">
-            <option th:value="null" selected>--Pilih Jenis--</option>
-            <option th:each="jenis: ${listAllJenis}" th:value="${jenis.getId()}" th:text="${jenis.getNama()}" ></option>
-            </select>
-        </div>
-<!-- untuk supplier -->
-        <div class="form-group" >
-            <label for="exampleFormControlSelect3">Supplier</label>
-            <select  name="supplier" class="form-control" id="exampleFormControlSelect3" th:each="obatsupplier, rowStat:*{obatSupplierModels}" th:field="*{obatSupplierModels[__${rowStat.index}__].supplier}">
-
-                <option th:value="null" selected>--Pilih Supplier--</option>
-                <option th:each="suppliers: ${listAllSupplier}" th:value="${suppliers.id}" th:text="${suppliers.nama}" ></option>
-            </select>
-        </div>
-        <button name="tambahSupplier" type="submit">Tambah Supplier</button>
-        <button type="submit"> Submit </button>
-    </form>
+                    <option th:value="null" selected>--Pilih Supplier--</option>
+                    <option th:each="suppliers: ${listAllSupplier}" th:value="${suppliers.id}" th:text="${suppliers.nama}" ></option>
+                </select>
+            </div>
+                <div class="container" style="text-align: right">
+                    <button name="tambahSupplier" type="submit" class="btn btn-secondary">Tambah Supplier</button>
+                    <button type="submit" class="btn btn-success"> Submit </button>
+                </div>
+        </form>
+    </div>
+    <br>
 </div>
 </body>
 </html>

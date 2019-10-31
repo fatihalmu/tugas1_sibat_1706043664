@@ -31,7 +31,7 @@ public class GudangController {
 
     @Autowired
     private Gudang_ObatService gudang_obatService;
-    //fitur 5 : menampilkan daftar gudang
+    //fitur 5 : menampilkan daftar gudang DONE
     @RequestMapping(value = "/gudang",method = RequestMethod.GET)
     public String view_Daftar_gudang(Model model){
         String navbartitle= "SIBAT";
@@ -40,46 +40,49 @@ public class GudangController {
         model.addAttribute("listAllGudang",listAllGudang);
         return "view-daftar-gudang";
     }
+    /**-----------------------------------------------------------*/
 
-    //fitur 6 : menampilkan detail gudang
+    //fitur 6 : menampilkan detail gudang DONE
     @RequestMapping(value = "/gudang/view",method = RequestMethod.GET)
     public String view_detail_gudang(@RequestParam(value = "idGudang") String idGudang,Model model){
-        GudangModel objekGudang = gudangService.getListGudangById(Long.valueOf(idGudang)).get();
-        List<Gudang_ObatModel> gudang_obatModel= objekGudang.getGudangObatModels();
+            String navbartitle = "SIBAT";
+            GudangModel objekGudang = gudangService.getListGudangById(Long.valueOf(idGudang)).get();
+            //list obat obat yang berhubungan sama gudang ini
+            List<Gudang_ObatModel> gudang_obatModel = objekGudang.getGudangObatModels();
 
-        System.out.println("masuk yang pertama");
+            Gudang_ObatModel dummyObatDitambah = new Gudang_ObatModel();
+            dummyObatDitambah.setGudang(objekGudang);
 
-        Gudang_ObatModel dummyObatDitambah = new Gudang_ObatModel();
-        dummyObatDitambah.setGudang(objekGudang);
-        System.out.println("setelah buat dummy");
+            ArrayList<ObatModel> obatDiGudang = new ArrayList<ObatModel>();
+            List<ObatModel> listAllObat = obatService.getListObat();
+            ArrayList<ObatModel> obatUntukDipilih = new ArrayList<ObatModel>();
 
 
-
-        ArrayList<ObatModel> obatDiGudang = new ArrayList<ObatModel>();
-        List<ObatModel> listAllObat = obatService.getListObat();
-
-        //masukkan obat yang dimiliki kedalam obatDiGudang
-        for(Gudang_ObatModel eachobject:gudang_obatModel){
-            obatDiGudang.add(eachobject.getObat());
-        }
-        for(int i =0 ; i < listAllObat.size();i++){
-            ObatModel objekObat = listAllObat.get(i);
-            if(obatDiGudang.contains(objekObat)){
-                listAllObat.remove(objekObat);
+            //masukkan obat yang dimiliki kedalam obatDiGudang
+            for (Gudang_ObatModel eachobject : gudang_obatModel) {
+                obatDiGudang.add(eachobject.getObat());
             }
-        }
 
-        String navbartitle= "SIBAT";
-        model.addAttribute("judul",navbartitle);
-        model.addAttribute("objekGudang",objekGudang);
-        model.addAttribute("obatDiGudang",obatDiGudang);
-        model.addAttribute("obatTidakDiGudang",listAllObat);
-        model.addAttribute("dummyObatDitambah",dummyObatDitambah);
-        System.out.println("ini gudang :"+dummyObatDitambah.getGudang());
-        return "view-detail-gudang";
+            for (int i = 0; i < listAllObat.size(); i++) {
+                ObatModel objekObat = listAllObat.get(i);
+                if (obatDiGudang.contains(objekObat)) {
+                    continue;
+                } else {
+                    obatUntukDipilih.add(objekObat);
+                }
+            }
+
+            model.addAttribute("judul", navbartitle);
+            model.addAttribute("objekGudang", objekGudang);
+            model.addAttribute("obatDiGudang", obatDiGudang);
+            model.addAttribute("obatTidakDiGudang", obatUntukDipilih);
+            model.addAttribute("dummyObatDitambah", dummyObatDitambah);
+            System.out.println("ini gudang :" + dummyObatDitambah.getGudang());
+            return "view-detail-gudang";
     }
+    /**-----------------------------------------------------------*/
 
-    //fitur 7 :tambah gudang form
+    //fitur 7 :tambah gudang form DONE
     @RequestMapping(value = "/gudang/tambah",method = RequestMethod.GET)
     public String tambah_gudang_form(Model model){
         GudangModel objekdummy = new GudangModel();
@@ -89,57 +92,105 @@ public class GudangController {
         return "form-tambah-gudang";
     }
 
-    //fitur 7 :tambah gudang submit
+    //fitur 7 :tambah gudang submit DONE
     @RequestMapping(value = "/gudang/tambah",method = RequestMethod.POST)
     public String tambah_gudang_submit(@ModelAttribute GudangModel objekdummy, Model model){
-        System.out.println("nama "+objekdummy.getNama());
-        System.out.println("alamat "+objekdummy.getAlamat());
-        System.out.println("id "+objekdummy.getId());
-        gudangService.tambahGudang(objekdummy);
         String navbartitle= "SIBAT";
+        String buttonErr = "Lihat Daftar Gudang";
+        String buttonErr2 = "Tambah Gudang";
+        String linkbutton = "/gudang";
+        String linkbutton2 = "/gudang/tambah";
+        if(objekdummy.getNama().equals("") || objekdummy.getAlamat().equals("")){
+            System.out.println("masuk eror");
+            String errmess = "Data Yang Anda Masukkan Salah Atau Tidak Lengkap";
+            model.addAttribute("judul", navbartitle);
+            model.addAttribute("errmess",errmess);
+            model.addAttribute("buttonErr",buttonErr);
+            model.addAttribute("linkbutton",linkbutton);
+            model.addAttribute("buttonErr2",buttonErr2);
+            model.addAttribute("linkbutton2",linkbutton2);
+            return "error";
+        }
+        gudangService.tambahGudang(objekdummy);
+        String notify = "Gudang '"+objekdummy.getNama()+"' berhasil ditambahkan";
+        model.addAttribute("notify",notify);
         model.addAttribute("judul",navbartitle);
-        model.addAttribute("objekdummy",objekdummy);
-        return "form-tambah-gudang-notify";
+        model.addAttribute("buttonErr",buttonErr);
+        model.addAttribute("linkbutton",linkbutton);
+        model.addAttribute("buttonErr2",buttonErr2);
+        model.addAttribute("linkbutton2",linkbutton2);
+        return "gudang-success-notify";
     }
+    /**-----------------------------------------------------------*/
 
-    //fitur 8 : hapus gudang by id
+    //fitur 8 : hapus gudang by id DONE
     @RequestMapping (value = "/gudang/hapus/{id}",method = RequestMethod.GET)
     public String hapus_gudang(@PathVariable("id") Long id,Model model){
         GudangModel objekgudang = gudangService.getListGudangById(id).get();
+        String navbartitle= "SIBAT";
+        String buttonErr = "Lihat Daftar Gudang";
+        String buttonErr2 = "Tambah Gudang";
+        String linkbutton = "/gudang";
+        String linkbutton2 = "/gudang/tambah";
         try{
             gudangService.deleteGudangById(id);
+            model.addAttribute("objek",objekgudang);
+            String notify = "Gudang '"+objekgudang.getNama()+"' berhasil dihapus";
+            model.addAttribute("notify",notify);
+            model.addAttribute("judul",navbartitle);
+            model.addAttribute("buttonErr",buttonErr);
+            model.addAttribute("linkbutton",linkbutton);
+            model.addAttribute("buttonErr2",buttonErr2);
+            model.addAttribute("linkbutton2",linkbutton2);
+            return "gudang-success-notify";
         }catch (UnsupportedOperationException e){
-            model.addAttribute("errorMessage", "Tidak berhasil dihapus karena gudang memiliki obat!");
-            return "delete-gudang-error";
+            String errmess = "Gudang Tidak Bisa Dihapus Karena Memiliki Obat";
+            model.addAttribute("judul", navbartitle);
+            model.addAttribute("errmess",errmess);
+            model.addAttribute("buttonErr",buttonErr);
+            model.addAttribute("linkbutton",linkbutton);
+            model.addAttribute("buttonErr2",buttonErr2);
+            model.addAttribute("linkbutton2",linkbutton2);
+            return "error";
         }
-        model.addAttribute("objek",objekgudang);
-        return "delete-gudang";
-    }
 
-    //fitur 9
+    }
+    /**-----------------------------------------------------------*/
+    //fitur 9 DONE
     @RequestMapping(value = "/gudang/tambah-obat",method = RequestMethod.POST)
     public String  tambah_obat_di_gudang(@ModelAttribute("dummyObatDitambah") @Valid Gudang_ObatModel dummyObatDitambah,
                                       BindingResult result, Model model){
-        if(result.hasErrors()){
-            System.out.println("masuk karena error");
-            System.out.println(result.getAllErrors());
-            System.out.println(result.getTarget());
-            System.out.println(result.getSuppressedFields());
-            return "tes";
+        String navbartitle = "SIBAT";
+        try {
+            System.out.println("masuk kedua");
+            System.out.println("obatnya :" + dummyObatDitambah.getObat() + " gudangnya: " + dummyObatDitambah.getGudang());
+            //dummyObatDitambah.setGudang();
+            gudang_obatService.tambahgudangobat(dummyObatDitambah);
+            //untuk ambil id
+            GudangModel objekGudang = dummyObatDitambah.getGudang();
+            view_detail_gudang(String.valueOf(objekGudang.getId()), model);
+            model.addAttribute("judul", navbartitle);
+            model.addAttribute("dummyObatDitambah", dummyObatDitambah);
+            return "add-obat-to-gudang-notify";
+        }catch (Exception SQLIntegrityConstraintViolationException){
+            String errmess = "Obat Sudah Habis Atau Anda Tidak Memilih Obat Sama Sekali";
+            String buttonErr = "Lihat Data Gudang";
+            String buttonErr2 = "Tambah Obat Lain";
+            String linkbutton = "/gudang/view?idGudang="+ dummyObatDitambah.getGudang().getId();
+            String linkbutton2 = "/obat/tambah";
+            model.addAttribute("judul", navbartitle);
+            model.addAttribute("errmess",errmess);
+            model.addAttribute("buttonErr",buttonErr);
+            model.addAttribute("linkbutton",linkbutton);
+            model.addAttribute("buttonErr2",buttonErr2);
+            model.addAttribute("linkbutton2",linkbutton2);
+            return "error";
+
         }
-        System.out.println("masuk kedua");
-        System.out.println("obatnya :" + dummyObatDitambah.getObat() +" gudangnya: "+ dummyObatDitambah.getGudang());
-        //dummyObatDitambah.setGudang();
-        gudang_obatService.tambahgudangobat(dummyObatDitambah);
-        //untuk ambil id
-        GudangModel objekGudang = dummyObatDitambah.getGudang();
-        view_detail_gudang(String.valueOf(objekGudang.getId()),model);
-        model.addAttribute("dummyObatDitambah",dummyObatDitambah);
-        return "add-obat-to-gudang-notify";
 
     }
-
-    //fitur 11 menampilkan daftar obat pada suatu gudang yang telah lebih dari 5 tahun
+    /**-----------------------------------------------------------*/
+    //fitur 11 menampilkan daftar obat pada suatu gudang yang telah lebih dari 5 tahun DONE
 
     @RequestMapping(value = "/gudang/expired-obat",method = RequestMethod.GET)
     public String obat_expired(@RequestParam(value = "idGudang",required = false) Long idGudang,Model model){
@@ -163,9 +214,48 @@ public class GudangController {
                 }
             }
         }
+        String navbartitle = "SIBAT";
+        model.addAttribute("judul",navbartitle);
         model.addAttribute("listAllGudang",listAllGudang);
         model.addAttribute("obatExpired",obatExpired);
         return "obat_expired";
+    }
+
+    /**-----------------------------------------------------------*/
+    //Fitur tambahan ubah gudang DONE
+    //form  UBAH gudang
+    @RequestMapping(value = "/gudang/ubah/{id}",method = RequestMethod.GET)
+    public String ubah_gudang_form(@PathVariable("id")Long id,Model model){
+        GudangModel objekGudang = gudangService.getListGudangById(id).get();
+        String navbartitle= "SIBAT";
+        model.addAttribute("judul",navbartitle);
+        model.addAttribute("objekGudang",objekGudang);
+        return "ubah-gudang-form";
+    }
+
+    //submit UBAH gudang DONE
+    @RequestMapping(value ="/gudang/ubah/{id}",method = RequestMethod.POST)
+    public String ubah_Gudang_submit(@ModelAttribute GudangModel objekGudang, Model model){
+        System.out.println("objek gudang "+objekGudang);
+        System.out.println("nama gudang "+objekGudang.getNama() + " alamat " + objekGudang.getAlamat());
+        String navbartitle= "SIBAT";
+        model.addAttribute("judul",navbartitle);
+        try {
+            GudangModel objekBaru = gudangService.ubahGudang(objekGudang);
+            model.addAttribute("objekBaru",objekBaru);
+            model.addAttribute("header","SUCCESS!");
+            model.addAttribute("pesan","Selamat! Gudang Berhasil Dirubah!");
+            model.addAttribute("flag",true);
+            return "ubah-gudang-notify";
+        }catch (UnsupportedOperationException e){
+            model.addAttribute("objekBaru",objekGudang);
+            model.addAttribute("header","WARNING!");
+            model.addAttribute("pesan","Tidak Ada Perubahan Pada Gudang Ini");
+            model.addAttribute("flag",false);
+            return "ubah-gudang-notify";
+
+        }
+
     }
 
 

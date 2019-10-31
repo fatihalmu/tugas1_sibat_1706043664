@@ -8,15 +8,18 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar" ></nav>
-<h2>Daftar Obat dan Jumlah Supplier</h2>
+<h2></h2>
 <div class = "container-fluid">
-    <table class="table">
+    <div class="card-body ">
+        <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: white;letter-spacing: 4px">DAFTAR OBAT BESERTA JUMLAH SUPPLIER & GUDANG</h2>
+        <table class="table bg-light" style="font-family: Roboto;text-align: center">
         <thead class="thead-dark">
         <tr>
             <th scope="col">No</th>
             <th scope="col">Kode</th>
             <th scope="col">Nama</th>
             <th scope="col">Jumlah Supplier</th>
+            <th scope="col">Jumlah Gudang</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +30,7 @@
             <td th:text="${obat.getKode()}"></td>
             <td th:text="${obat.getNama()}"></td>
             <td th:text="${obat.getObatSupplierModels().size()}"></td>
+            <td th:text="${obat.getGudangObatModels().size()}"></td>
         </tr>
         </tbody>
     </table>

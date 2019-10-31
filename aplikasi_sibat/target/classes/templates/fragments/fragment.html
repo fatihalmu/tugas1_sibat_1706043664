@@ -12,23 +12,38 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
                 integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
+        <style>
+            body{
+                background-color: #86cfda;
+            }
+        </style>
     </head>
 </head>
 <body>
-<nav th:fragment="navbar" class = "navbar navbar-expand-lg navbar-light bg-dark">
+<nav th:fragment="navbar" class = "navbar navbar-expand-lg navbar-light bg-dark" style="font-family: Roboto;">
     <a class = "navbar-brand" th:href="@{/}" th:text="${judul}" style="color: white"></a>
-    <button class = "navbar-toggler" type="button" data-toggle = "collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button class = "navbar-toggler" type="button" data-toggle = "collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class ="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class = "nav-item nav-link active" th:href="@{/}" style="color: white"> Beranda <span class ="sr-only">(current)</span></a>
-            <a class = "nav-item nav-link active" th:href="@{/gudang}" style="color: white"> Gudang <span class ="sr-only">(current)</span></a>
-            <a class = "nav-item nav-link active" th:href="@{/gudang/expired-obat}" style="color: white"> Cari <span class ="sr-only">(current)</span></a>
-            <a class = "nav-item nav-link active" th:href="@{/obat/filter}" style="color: white"> Filter<span class ="sr-only">(current)</span></a>
-            <a class = "nav-item nav-link active" th:href="@{/bonus}" style="color: white"> Bonus<span class ="sr-only">(current)</span></a>
-        </div>
+    <div class ="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class = "nav-item nav-link active" th:href="@{/}" style="color: white"> Beranda <span class ="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class = "nav-item nav-link active" th:href="@{/gudang}" style="color: white"> Gudang <span class ="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class = "nav-item nav-link active" th:href="@{/gudang/expired-obat}" style="color: white"> Cari <span class ="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class = "nav-item nav-link active" th:href="@{/obat/filter}" style="color: white"> Filter<span class ="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class = "nav-item nav-link active" th:href="@{/bonus}" style="color: white"> Bonus<span class ="sr-only">(current)</span></a>
+            </li>
+        </ul>
     </div>
 </nav>
 </body>

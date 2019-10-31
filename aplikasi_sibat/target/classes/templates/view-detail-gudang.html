@@ -14,49 +14,64 @@
     </style>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar" ></nav>
+<nav th:replace="fragments/fragment :: navbar"></nav>
 <h2></h2>
-<div class = "container" style="text-align: center;">
-        <div class="card" style="width:30vw;text-align: center">
-            <div class="card-body">
-                <h5 class="card-title">Detail Gudang</h5>
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th scope="row">Nama:</th>
-                        <td th:text="${objekGudang.getNama()}"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Alamat:</th>
-                        <td th:text="${objekGudang.getAlamat()}"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Jumlah obat:</th>
-                        <td th:text="${obatDiGudang.size()}"></td>
-                    </tr>
-                    <tr>
-                        <form th:action="@{/gudang/tambah-obat}" th:object="${dummyObatDitambah}" method="POST">
-                            <input type="hidden" th:name="id" th:value="${objekGudang}" th:field="*{gudang}"/>
-                            <td>
-                                <select  name="obat" class="form-control" id="exampleFormControlSelect2" th:field="*{obat}">
-                                    <option th:value="null" selected>--Pilih Obat--</option>
-                                    <option th:each="obat: ${obatTidakDiGudang}" th:value="${obat.getId()}" th:text="${obat.getNama()}" ></option>
-                                </select>
-                            </td>
-                            <td> <a><button type="submit" class="btn btn-success">Submit</button></a></td>
-                        </form>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+<div class="container" style="text-align: center;">
+    <div style="text-align: center">
+        <a th:href="@{/gudang/ubah/}+${objekGudang.getId()}">
+            <button class="btn btn-secondary"> Ubah</button>
+        </a>
+        <a th:href="@{/gudang/hapus/}+${objekGudang.getId()}">
+            <button class="btn btn-danger"> Hapus</button>
+        </a>
+    </div>
+    <h5></h5>
+    <div class="card" style="width:30vw;text-align: center">
+        <div class="card-body">
+            <h5 class="card-title card-header"
+                style="text-align: center; font-family: Impact;color: black;letter-spacing: 4px">DETAIL DATA
+                GUDANG </h5>
+            <table class="table" style="font-family: Roboto">
+                <tbody>
+                <tr>
+                    <th scope="row">Nama:</th>
+                    <td th:text="${objekGudang.getNama()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Alamat:</th>
+                    <td th:text="${objekGudang.getAlamat()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Jumlah obat:</th>
+                    <td th:text="${obatDiGudang.size()}"></td>
+                </tr>
+                <tr>
+                    <form th:action="@{/gudang/tambah-obat}" th:object="${dummyObatDitambah}" method="POST">
+                        <input type="hidden" th:name="id" th:value="${objekGudang}" th:field="*{gudang}"/>
+                        <td>
+                            <select name="obat" class="form-control" id="exampleFormControlSelect2" th:field="*{obat}">
+                                <option th:value="null" selected>--Pilih Obat--</option>
+                                <option th:each="obat: ${obatTidakDiGudang}" th:value="${obat.getId()}"
+                                        th:text="${obat.getNama()}"></option>
+                            </select>
+                        </td>
+                        <td><a>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </a></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
 </div>
 <!-- untuk daftar obatnya"-->
-<div class = "container-fluid" style="text-align: center;">
+<div class="container-fluid" style="text-align: center;">
     <div class="card" style="text-align: center">
         <div class="card-body">
-            <h5 class="card-title thead-dark">Daftar Obat</h5>
-            <table class="table">
+            <h5 class="card-title card-header"
+                style="text-align: center; font-family: Impact;color: black;letter-spacing: 4px">DAFTAR OBAT </h5>
+            <table class="table" style="font-family: Roboto;">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">No</th>
