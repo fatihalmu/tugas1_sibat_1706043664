@@ -94,7 +94,7 @@ public class ObatController {
         String navbartitle = "SIBAT";
         String buttonErr = "Lihat Data Obat";
         String buttonErr2 = "Tambah Obat";
-        String linkbutton = "/";
+        String linkbutton = "/obat/view?noReg="+objekdummy.getNomorRegistrasi();
         String linkbutton2 = "/obat/tambah";
         model.addAttribute("judul", navbartitle);
         model.addAttribute("objekdummy", objekdummy);
@@ -129,6 +129,8 @@ public class ObatController {
             return "form-tambah-obat-notify";
         }catch (Exception SQLIntegrityConstraintViolationException ){
             System.out.println("masuk eror");
+            buttonErr="Lihat Daftar Obat";
+            linkbutton ="/";
             String errmess = "Data Yang Anda Masukkan Salah Atau Tidak Lengkap Atau Memiliki Kesamaan Dengan Data Yang Sudah Ada";
             model.addAttribute("judul", navbartitle);
             model.addAttribute("errmess",errmess);

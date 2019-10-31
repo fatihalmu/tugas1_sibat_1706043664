@@ -2,55 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0c64b00-ef2d-4ea3-ae6d-be0ffdf07860" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/delete-obat-error.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/delete-obat.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/error.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/gudang-success-notify.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/ubah-gudang-form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/ubah-gudang-notify.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/controller/GudangController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/controller/GudangController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/controller/ObatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/controller/ObatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/model/ObatModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/model/ObatModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/service/GudangServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/service/GudangServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/service/ObatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/service/ObatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/service/ObatServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/service/ObatServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/add-obat-to-gudang-notify.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/add-obat-to-gudang-notify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/bonus.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/bonus.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/delete-gudang-error.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/delete-gudang.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/filter-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/filter-form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-gudang-notify.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-gudang-notify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-gudang.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-gudang.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-obat-notify.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-gudang-notify.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-obat-notify.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-obat.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/form-tambah-obat.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/fragment.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/fragment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/obat_expired.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/obat_expired.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ubah-obat-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ubah-obat-form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/ubah-obat-notify.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/ubah-obat-notify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view-daftar-gudang.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view-daftar-gudang.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view-detail-gudang.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view-detail-gudang.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/view-detail-obat.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/view-detail-obat.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/add-obat-to-gudang-notify.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/add-obat-to-gudang-notify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/delete-gudang-error.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/delete-gudang.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/filter-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/filter-form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/form-tambah-gudang-notify.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/form-tambah-gudang-notify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/form-tambah-gudang.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/form-tambah-gudang.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/form-tambah-obat-notify.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/form-tambah-gudang-notify.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/form-tambah-obat.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/form-tambah-obat.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/fragments/fragment.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/fragments/fragment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/view-daftar-gudang.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/view-daftar-gudang.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/view-detail-gudang.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/view-detail-gudang.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/view-detail-obat.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/view-detail-obat.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/controller/GudangController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/controller/GudangController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/controller/ObatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/controller/ObatController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/model/ObatModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/model/ObatModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/service/GudangServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/service/GudangServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/service/ObatService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/service/ObatService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/service/ObatServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tugas1_sibat_1706043664/aplikasi_sibat/service/ObatServiceImpl.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +113,7 @@
       <workItem from="1571570807079" duration="1197000" />
       <workItem from="1571837771194" duration="5748000" />
       <workItem from="1571998793882" duration="26068000" />
-      <workItem from="1572193426825" duration="131611000" />
+      <workItem from="1572193426825" duration="133169000" />
     </task>
     <servers />
   </component>
@@ -173,15 +134,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/tugas1_sibat_1706043664/aplikasi_sibat/controller/ObatController.java</url>
-          <line>108</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="objekdummy.id" />
