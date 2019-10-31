@@ -29,6 +29,7 @@ public class ObatServiceImpl implements ObatService {
         if((objekAsli.getNama().equals(objekYangDiubah.getNama()))
                 && (objekAsli.getHarga().equals(objekYangDiubah.getHarga()))
                 && ((objekAsli.getTanggalTerbit().compareTo(objekYangDiubah.getTanggalTerbit()) == 0) && objekAsli.getBentuk().equals(objekYangDiubah.getBentuk()))){
+            System.out.println("masuk sini woi");
             UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException();
             throw unsupportedOperationException;
         }
