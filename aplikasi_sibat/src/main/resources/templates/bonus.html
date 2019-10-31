@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar" ></nav>
+<h2></h2>
+<div class = "container-fluid">
+    <div class="card-body ">
+        <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: white;letter-spacing: 4px">DAFTAR OBAT BESERTA JUMLAH SUPPLIER & GUDANG</h2>
+        <table class="table bg-light" style="font-family: Roboto;text-align: center">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Kode</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Jumlah Supplier</th>
+            <th scope="col">Jumlah Gudang</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- diiisi pake iterasi dari datbase-->
+        <tr th:each="obat, iterationStatus : *{listAllObat}"
+            th:style="${iterationStatus.even} ? 'color: blue'">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${obat.getKode()}"></td>
+            <td th:text="${obat.getNama()}"></td>
+            <td th:text="${obat.getObatSupplierModels().size()}"></td>
+            <td th:text="${obat.getGudangObatModels().size()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

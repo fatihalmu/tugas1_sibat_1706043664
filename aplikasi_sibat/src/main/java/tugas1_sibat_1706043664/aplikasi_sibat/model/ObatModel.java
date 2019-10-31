@@ -37,12 +37,12 @@ public class ObatModel {
     private String kode;
 
     @NotNull
-    @Column(name = "harga",nullable = false,unique = true)
+    @Column(name = "harga",nullable = false)
     private Double harga;
 
     @NotNull
     @Size(max = 255)
-    @Column(name = "nomorRegistrasi",nullable = false)
+    @Column(name = "nomorRegistrasi",nullable = false,unique = true)
     private String nomorRegistrasi;
 
     @NotNull

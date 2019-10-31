@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        @media (min-width: 768px) {
+            .container-small {
+                width: 300px;
+            }
+            .container-large {
+                width: 970px;
+            }
+        }
+        @media (min-width: 992px) {
+            .container-small {
+                width: 500px;
+            }
+            .container-large {
+                width: 1170px;
+            }
+        }
+        @media (min-width: 1200px) {
+            .container-small {
+                width: 700px;
+            }
+            .container-large {
+                width: 1500px;
+            }
+        }
+
+        .container-small, .container-large {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar" ></nav>
+
+<div class="container container-small">
+    <br>
+    <div class="card-body bg-light">
+        <h2 class="card-title thead-dark" style="text-align: center; font-family: Impact;color: black;letter-spacing: 4px">UBAH GUDANG</h2>
+        <form class="form-group bg-light" th:action="@{/gudang/ubah/}+${objekGudang.getId()}" th:object="${objekGudang}" method="POST" style="font-family: Roboto">
+            <input type="hidden" name="id" th:name="id"  th:field="*{id}"/>
+            <div class="form-group ">
+                <label for="exampleFormControlInput1">Nama</label>
+                <input type="text" name="nama"  class="form-control"  id="exampleFormControlInput1" th:value="${objekGudang.nama}" th:field="*{nama}">
+            </div>
+
+            <div class="form-group ">
+                <label for="exampleFormControlInput2">Alamat</label>
+                <input type="text" name="nomor_registrasi" class="form-control" id="exampleFormControlInput2" th:value="${objekGudang.getAlamat()}" th:field="*{alamat}">
+            </div>
+
+            <div style="text-align: right">
+                <button type="submit" name="id" class="btn btn-success" style="text-align: right"> Submit </button>
+            </div>
+        </form>
+    </div>
+    <br>
+</div>
+</body>
+</html>

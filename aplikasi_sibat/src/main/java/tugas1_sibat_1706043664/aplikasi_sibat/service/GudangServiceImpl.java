@@ -3,6 +3,7 @@ package tugas1_sibat_1706043664.aplikasi_sibat.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tugas1_sibat_1706043664.aplikasi_sibat.model.GudangModel;
+import tugas1_sibat_1706043664.aplikasi_sibat.model.ObatModel;
 import tugas1_sibat_1706043664.aplikasi_sibat.repository.GudangDB;
 
 import javax.transaction.Transactional;
@@ -21,8 +22,32 @@ public class GudangServiceImpl implements GudangService{
     }
 
     @Override
-    public GudangModel ubahGudang(GudangModel gudangModel) {
-        return null;
+    public GudangModel ubahGudang(GudangModel objekYangDiubah) {
+        Long id= objekYangDiubah.getId();
+        GudangModel objekAsli = gudangDB.findById(id).get();
+        //kalau gaaada yang diubah
+        if((objekAsli.getNama().equals(objekYangDiubah.getNama()))
+                && (objekAsli.getAlamat().equals(objekYangDiubah.getAlamat()))){
+            UnsupportedOperationException unsupportedOperationException = new UnsupportedOperationException();
+            throw unsupportedOperationException;
+        }
+        //kalau nama ga diubah
+        if(objekAsli.getNama().equals(objekYangDiubah.getNama())) {
+            //do nothing
+            ;
+        }else {
+            objekAsli.setNama(objekYangDiubah.getNama());
+        }
+        //kalau harga ga diubah
+        if(objekAsli.getAlamat().equals(objekYangDiubah.getAlamat())) {
+            //do nothing
+            ;
+        }else {
+            objekAsli.setAlamat(objekYangDiubah.getAlamat());
+        }
+
+        gudangDB.save(objekAsli);
+        return objekAsli;
     }
 
     @Override
