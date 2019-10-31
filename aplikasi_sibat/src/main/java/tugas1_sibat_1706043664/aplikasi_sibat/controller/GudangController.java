@@ -113,6 +113,8 @@ public class GudangController {
         }
         gudangService.tambahGudang(objekdummy);
         String notify = "Gudang '"+objekdummy.getNama()+"' berhasil ditambahkan";
+        buttonErr= "Lihat Data Gudang";
+        linkbutton = "/gudang/view?idGudang="+objekdummy.getId();
         model.addAttribute("notify",notify);
         model.addAttribute("judul",navbartitle);
         model.addAttribute("buttonErr",buttonErr);
